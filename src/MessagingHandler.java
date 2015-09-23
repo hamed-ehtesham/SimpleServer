@@ -1,17 +1,20 @@
 import javax.crypto.SealedObject;
-import java.io.*;
-import java.net.InetSocketAddress;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
-import java.util.Iterator;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 
 /**
- * Created by Hamed on 9/19/2015.
+ * Created by Hamed on 9/23/2015.
  */
-public class RegisterHandler extends ServerHandler{
+public class MessagingHandler extends ServerHandler {
     private String symmetricKey;
 
-    public RegisterHandler(String ADDRESS, int PORT, long TIMEOUT) {
+    public MessagingHandler(String ADDRESS, int PORT, long TIMEOUT) {
         super(ADDRESS, PORT, TIMEOUT);
         init();
     }

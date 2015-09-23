@@ -1,9 +1,10 @@
 import javax.crypto.SealedObject;
-import java.io.*;
-import java.net.InetSocketAddress;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
-import java.util.Iterator;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.SocketChannel;
 
 /**
  * Created by Hamed on 9/19/2015.
@@ -14,7 +15,6 @@ public class RegisterRequest {
     private String firstName;
     private String lastName;
     private String nickname;
-    private String symmetricKey;
     private RegistrationRespondInfo respond;
 
     public RegisterRequest(String email, String password, String firstName, String lastName, String nickname) {
@@ -77,70 +77,19 @@ public class RegisterRequest {
      * @param args
      */
     public static void main(String[] args) {
-        RegisterRequest request = new RegisterRequest("alij@gmail.com","i,d[","ali","jafari","aliJ");
+        RegisterRequest request = new RegisterRequest("alijaf@gmail.com", "i,d[", "ali", "jafari", "aliJ");
         request.request();
     }
 
-    class request implements Runnable {
-
-        private Selector selector;
+    class request extends ClientHandler {
         private SealedObject sealedObject;
 
+        public request(String ADDRESS, int PORT) {
+            super(ADDRESS, PORT);
+        }
+
         @Override
-        public void run() {
-            SocketChannel channel;
-            try {
-                selector = Selector.open();
-                channel = SocketChannel.open();
-                channel.configureBlocking(false);
-
-                symmetricKey = SymmetricUtil.nextSymmetricKey();
-
-                channel.register(selector, SelectionKey.OP_CONNECT);
-                channel.connect(new InetSocketAddress("127.0.0.1", 8511));
-
-                while (!Thread.interrupted()) {
-
-                    selector.select(1000);
-
-                    Iterator<SelectionKey> keys = selector.selectedKeys().iterator();
-
-                    while (keys.hasNext()) {
-                        SelectionKey key = keys.next();
-                        keys.remove();
-
-                        if (!key.isValid()) continue;
-
-                        if (key.isConnectable()) {
-                            System.out.println("I am connected to the server");
-                            connect(key);
-                        }
-                        if (key.isWritable()) {
-                            write(key);
-                        }
-                        if (key.isReadable()) {
-                            read(key);
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } finally {
-                close();
-            }
-        }
-
-        private void close() {
-            try {
-                selector.close();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
-        private void read(SelectionKey key) throws IOException {
+        protected void read(SelectionKey key) throws IOException {
             ByteArrayOutputStream bos = ChannelHelper.read(key);
             byte[] data = bos.toByteArray();
             switch ((ConnectionSteps.Registration) key.attachment()) {
@@ -163,7 +112,8 @@ public class RegisterRequest {
             }
         }
 
-        private void write(SelectionKey key) throws IOException {
+        @Override
+        protected void write(SelectionKey key) throws IOException {
             SocketChannel channel = (SocketChannel) key.channel();
 
             switch ((ConnectionSteps.Registration) key.attachment()) {
@@ -205,18 +155,6 @@ public class RegisterRequest {
             }
         }
 
-        private void connect(SelectionKey key) throws IOException {
-            SocketChannel channel = (SocketChannel) key.channel();
-            if (channel.isConnectionPending()) {
-                channel.finishConnect();
-            }
-            channel.configureBlocking(false);
-
-            //Prepare key for receive server's public key from server
-            SelectionKey readKey = channel.register(selector, SelectionKey.OP_READ);
-            readKey.attach(ConnectionSteps.Registration.PUBLIC_KEY);
-        }
-
         private void encryptSymmetricKey(KeyInfo keyInfo) {
             try {
                 sealedObject = RSAEncryptionUtil.encryptByPublicKey(symmetricKey, keyInfo.key);
@@ -227,18 +165,7 @@ public class RegisterRequest {
     }
 
     public void request() {
-        //connect to server
-
-        //get server's public key
-
-        //generate symmetric key and send it to server using server's public key
-
-        //send username and password to server using symmetric key
-
-        //get response from server and act accordingly
-
-
-        Thread thread = new Thread(new request());
+        Thread thread = new Thread(new request("localhost", 8511));
         thread.start();
     }
 }
