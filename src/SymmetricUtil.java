@@ -12,7 +12,7 @@ public final class SymmetricUtil {
         return new BigInteger(130, random).toString(32);
     }
 
-    public static String getSessionID(String username, SocketAddress ip, String secretKey) {
+    public static String getSessionID(String username, String ip, String secretKey) {
         StringBuilder sessionID = new StringBuilder(100);
         sessionID.append(System.currentTimeMillis());
         sessionID.append('_');

@@ -36,7 +36,6 @@ public class RegisterHandler extends ServerHandler {
     @Override
     protected void write(SelectionKey key) throws IOException {
         SocketChannel channel = (SocketChannel) key.channel();
-
         switch ((ConnectionSteps.Registration) key.attachment()) {
             case PUBLIC_KEY: {
                 KeyInfo keyInfo = new KeyInfo();
@@ -58,10 +57,16 @@ public class RegisterHandler extends ServerHandler {
 
                     if (requestInfo != null) {
                         respondInfo = RegistrationDBHelper.register(requestInfo);
+<<<<<<< HEAD
                         if (respondInfo.getSucceed()) {
                             // TODO: automatic login to server using email and password
 //                            String sessionID = SymmetricUtil.getSessionID(requestInfo.getEmail(), channel.getRemoteAddress(), symmetricKey);
 //                            respondInfo.setSessionID(sessionID);
+=======
+                        if(respondInfo.getSucceed()) {
+
+
+>>>>>>> Mohammad-Amin
                         }
                     } else {
                         throw new IOException("requestInfo not received!");
