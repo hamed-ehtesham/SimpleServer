@@ -1,6 +1,7 @@
 import javax.crypto.SealedObject;
 import java.io.*;
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.util.Iterator;
@@ -51,7 +52,6 @@ public class RegisterHandler extends ServerHandler{
     @Override
     protected void write(SelectionKey key) throws IOException {
         SocketChannel channel = (SocketChannel) key.channel();
-
         switch ((ConnectionSteps.Registration) key.attachment()) {
             case PUBLIC_KEY: {
                 KeyInfo keyInfo = new KeyInfo();
