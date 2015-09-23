@@ -60,13 +60,6 @@ public class RegisterHandler extends ServerHandler {
                         AESEncryptionUtil encryptionUtil = new AESEncryptionUtil(symmetricKey);
                         requestInfo.setPassword(encryptionUtil.encrypt(requestInfo.getPassword()));
                         respondInfo = DBHelper.register(requestInfo, symmetricKey);
-                        if (respondInfo.getSucceed()) {
-                            // TODO: automatic login to server using email and password
-                            LoginRequest request = new LoginRequest(requestInfo.getEmail(), requestInfo.getPassword());
-                            request.request();
-                            LoginRespondInfo loginRespondInfo = request.getRespond();
-                            System.out.println(loginRespondInfo);
-                        }
                     } else {
                         throw new IOException("requestInfo not received!");
                     }

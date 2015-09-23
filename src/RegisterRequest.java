@@ -74,7 +74,7 @@ public class RegisterRequest {
     }
 
     public static void main(String[] args) {
-        RegisterRequest request = new RegisterRequest("ali_jafa@gmail.com", "i,d[", "ali", "jafari", "aliJ");
+        RegisterRequest request = new RegisterRequest("ali_jafari2@gmail.com", "i,d[", "ali", "jafari", "aliJ");
         request.request();
     }
 
@@ -115,6 +115,13 @@ public class RegisterRequest {
                     RegistrationRespondInfo respondInfo = XMLUtil.unmarshal(RegistrationRespondInfo.class, data);
                     setRespond(respondInfo);
                     System.out.println(respondInfo);
+                    if(respondInfo.getSucceed())
+                    {
+                        ConnectionSteps.Registration attachment = (ConnectionSteps.Registration) key.attachment();
+                        RegistrationRequestInfo requestInfo = (RegistrationRequestInfo) attachment.getAttachment();
+                        LoginRequest request = new LoginRequest(requestInfo.getEmail(), requestInfo.getPassword());
+                        request.request();
+                    }
                     key.cancel();
                     Thread.currentThread().interrupt();
                     break;
@@ -150,6 +157,7 @@ public class RegisterRequest {
 //                    System.out.println(new String(buffer.array()));
                     key.interestOps(SelectionKey.OP_READ);
                     ConnectionSteps.Registration respond = ConnectionSteps.Registration.REG_RESPOND;
+                    respond.setAttachment(requestInfo);
                     key.attach(ConnectionSteps.Registration.REG_RESPOND);
 
                     break;
