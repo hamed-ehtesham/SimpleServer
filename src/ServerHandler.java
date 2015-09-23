@@ -55,7 +55,10 @@ public abstract class ServerHandler implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Now accepting connections...");
+        if (!(serverChannel.socket().isBound() && !serverChannel.socket().isClosed()))
+            Thread.currentThread().interrupt();
+        else
+            System.out.println("Now accepting connections...");
         try {
             // A run the server as long as the thread is not interrupted.
             while (!Thread.currentThread().isInterrupted()) {
@@ -77,12 +80,10 @@ public abstract class ServerHandler implements Runnable {
                     if (key.isAcceptable()) {
                         System.out.println("Accepting connection");
                         accept(key);
-                    }
-                    else if (key.isWritable()) {
+                    } else if (key.isWritable()) {
                         System.out.println("Writing...");
                         write(key);
-                    }
-                    else if (key.isReadable()) {
+                    } else if (key.isReadable()) {
                         System.out.println("Reading connection");
                         read(key);
                     }

@@ -43,11 +43,8 @@ public class LoginRequest {
         this.respond = respond;
     }
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
-        LoginRequest request = new LoginRequest("alijaf@gmail.com", "i,d[");
+        LoginRequest request = new LoginRequest("ali_jaf@gmail.com", "i,d[");
         request.request();
     }
 
@@ -56,6 +53,19 @@ public class LoginRequest {
 
         public request(String ADDRESS, int PORT) {
             super(ADDRESS, PORT);
+        }
+
+        @Override
+        protected void connect(SelectionKey key) throws IOException {
+            SocketChannel channel = (SocketChannel) key.channel();
+            if (channel.isConnectionPending()) {
+                channel.finishConnect();
+            }
+            channel.configureBlocking(false);
+
+            //Prepare key for receive server's public key from server
+            SelectionKey readKey = channel.register(selector, SelectionKey.OP_READ);
+            readKey.attach(ConnectionSteps.Login.PUBLIC_KEY);
         }
 
         @Override
@@ -89,15 +99,7 @@ public class LoginRequest {
             switch ((ConnectionSteps.Login) key.attachment()) {
                 case SYMMETRIC_KEY: {
                     if (sealedObject != null) {
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        ObjectOutputStream oos = new ObjectOutputStream(bos);
-                        SealedObject[] soa = new SealedObject[]{sealedObject};
-                        oos.writeObject(soa);
-                        oos.flush();
-
-                        ByteBuffer buffer = ByteBuffer.wrap(bos.toByteArray());
-                        channel.write(buffer);
-//                    System.out.println(new String(buffer.array()));
+                        ChannelHelper.writeObject(channel, sealedObject);
                         key.attach(ConnectionSteps.Login.LOGIN_INFO);
                     }
 
@@ -114,7 +116,6 @@ public class LoginRequest {
                     channel.write(buffer);
 //                    System.out.println(new String(buffer.array()));
                     key.interestOps(SelectionKey.OP_READ);
-                    ConnectionSteps.Login respond = ConnectionSteps.Login.LOGIN_RESPOND;
                     key.attach(ConnectionSteps.Login.LOGIN_RESPOND);
 
                     break;
@@ -132,7 +133,7 @@ public class LoginRequest {
     }
 
     public void request() {
-        Thread thread = new Thread(new request("localhost", 8511));
+        Thread thread = new Thread(new request("localhost", 8513));
         thread.start();
     }
 }

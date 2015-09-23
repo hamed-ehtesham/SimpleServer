@@ -1,9 +1,10 @@
 import javax.crypto.SealedObject;
-import java.io.*;
-import java.net.InetSocketAddress;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
-import java.util.Iterator;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 
 /**
  * Created by Hamed on 9/19/2015.
@@ -56,22 +57,21 @@ public class RegisterHandler extends ServerHandler {
                     RegistrationRequestInfo requestInfo = (RegistrationRequestInfo) respond.getAttachment();
 
                     if (requestInfo != null) {
-                        respondInfo = RegistrationDBHelper.register(requestInfo);
-<<<<<<< HEAD
+                        AESEncryptionUtil encryptionUtil = new AESEncryptionUtil(symmetricKey);
+                        requestInfo.setPassword(encryptionUtil.encrypt(requestInfo.getPassword()));
+                        respondInfo = DBHelper.register(requestInfo, symmetricKey);
                         if (respondInfo.getSucceed()) {
                             // TODO: automatic login to server using email and password
-//                            String sessionID = SymmetricUtil.getSessionID(requestInfo.getEmail(), channel.getRemoteAddress(), symmetricKey);
-//                            respondInfo.setSessionID(sessionID);
-=======
-                        if(respondInfo.getSucceed()) {
-
-
->>>>>>> Mohammad-Amin
+                            LoginRequest request = new LoginRequest(requestInfo.getEmail(), requestInfo.getPassword());
+                            request.request();
+                            LoginRespondInfo loginRespondInfo = request.getRespond();
+                            System.out.println(loginRespondInfo);
                         }
                     } else {
                         throw new IOException("requestInfo not received!");
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     respondInfo.setSucceed(false);
                     respondInfo.setMessage("Register failure");
                 }

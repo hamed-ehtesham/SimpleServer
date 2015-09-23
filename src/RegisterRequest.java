@@ -74,7 +74,7 @@ public class RegisterRequest {
     }
 
     public static void main(String[] args) {
-        RegisterRequest request = new RegisterRequest("ali_j@gmail.com", "i,d[", "ali", "jafari", "aliJ");
+        RegisterRequest request = new RegisterRequest("ali_jafa@gmail.com", "i,d[", "ali", "jafari", "aliJ");
         request.request();
     }
 
@@ -83,6 +83,19 @@ public class RegisterRequest {
 
         public request(String ADDRESS, int PORT) {
             super(ADDRESS, PORT);
+        }
+
+        @Override
+        protected void connect(SelectionKey key) throws IOException {
+            SocketChannel channel = (SocketChannel) key.channel();
+            if (channel.isConnectionPending()) {
+                channel.finishConnect();
+            }
+            channel.configureBlocking(false);
+
+            //Prepare key for receive server's public key from server
+            SelectionKey readKey = channel.register(selector, SelectionKey.OP_READ);
+            readKey.attach(ConnectionSteps.Registration.PUBLIC_KEY);
         }
 
         @Override
@@ -117,16 +130,6 @@ public class RegisterRequest {
                 case SYMMETRIC_KEY: {
                     if (sealedObject != null) {
                         ChannelHelper.writeObject(channel, sealedObject);
-//                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//                        ObjectOutputStream oos = new ObjectOutputStream(bos);
-//                        SealedObject[] soa = new SealedObject[]{sealedObject};
-//
-//                        oos.writeObject(soa);
-//                        oos.flush();
-//
-//                        ByteBuffer buffer = ByteBuffer.wrap(bos.toByteArray());
-//                        channel.write(buffer);
-//                    System.out.println(new String(buffer.array()));
                         key.attach(ConnectionSteps.Registration.REG_INFO);
                     }
 
