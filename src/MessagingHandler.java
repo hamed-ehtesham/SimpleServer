@@ -25,15 +25,6 @@ public class MessagingHandler extends ServerHandler {
         thread.start();
     }
 
-    /**
-     * Since we are accepting, we must instantiate a serverSocketChannel by calling key.channel().
-     * We use this in order to get a socketChannel (which is like a socket in I/O) by calling
-     * serverSocketChannel.accept() and we register that channel to the selector to listen
-     * to a WRITE OPERATION. I do this because my server sends a hello message to each
-     * client that connects to it. This doesn't mean that I will write right NOW. It means that I
-     * told the selector that I am ready to write and that next time Selector.select() gets called
-     * it should give me a key with isWritable(). More on this in the write() method.
-     */
     @Override
     protected void accept(SelectionKey key) throws IOException {
         ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
@@ -45,12 +36,6 @@ public class MessagingHandler extends ServerHandler {
         writeKey.attach(ConnectionSteps.Registration.PUBLIC_KEY);
     }
 
-    /**
-     * We registered this channel in the Selector. This means that the SocketChannel we are receiving
-     * back from the key.channel() is the same channel that was used to register the selector in the accept()
-     * method. Again, I am just explaning as if things are synchronous to make things easy to understand.
-     * This means that later, we might register to write from the read() method (for example).
-     */
     @Override
     protected void write(SelectionKey key) throws IOException {
         SocketChannel channel = (SocketChannel) key.channel();
@@ -101,12 +86,6 @@ public class MessagingHandler extends ServerHandler {
 
     }
 
-    /**
-     * We read data from the channel. In this case, my server works as an echo, so it calls the echo() method.
-     * The echo() method, sets the server in the WRITE OPERATION. When the while loop in run() happens again,
-     * one of those keys from Selector.select() will be key.isWritable() and this is where the actual
-     * write will happen by calling the write() method.
-     */
     @Override
     protected void read(SelectionKey key) throws IOException {
         ByteArrayOutputStream bos = ChannelHelper.read(key);

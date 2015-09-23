@@ -46,11 +46,6 @@ public abstract class ServerHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            /**
-             * Here you are registering the serverSocketChannel to accept connection, thus the OP_ACCEPT.
-             * This means that you just told your selector that this channel will be used to accept connections.
-             * We can change this operation later to read/write, more on this later.
-             */
             serverChannel.register(selector, SelectionKey.OP_ACCEPT);
 
         } catch (IOException e) {
@@ -64,19 +59,10 @@ public abstract class ServerHandler implements Runnable {
         try {
             // A run the server as long as the thread is not interrupted.
             while (!Thread.currentThread().isInterrupted()) {
-                /**
-                 * selector.select(TIMEOUT) is waiting for an OPERATION to be ready and is a blocking call.
-                 * For example, if a client connects right this second, then it will break from the select()
-                 * call and run the code below it. The TIMEOUT is not needed, but its just so it doesn't
-                 * block undefinitely.
-                 */
+
                 selector.select(TIMEOUT);
 
-                /**
-                 * If we are here, it is because an operation happened (or the TIMEOUT expired).
-                 * We need to get the SelectionKeys from the selector to see what operations are available.
-                 * We use an iterator for this.
-                 */
+
                 Iterator<SelectionKey> keys = selector.selectedKeys().iterator();
 
                 while (keys.hasNext()) {
@@ -88,29 +74,14 @@ public abstract class ServerHandler implements Runnable {
                     if (!key.isValid()) {
                         continue;
                     }
-                    /**
-                     * In the server, we start by listening to the OP_ACCEPT when we register with the Selector.
-                     * If the key from the keyset is Acceptable, then we must get ready to accept the client
-                     * connection and do something with it. Go read the comments in the accept method.
-                     */
                     if (key.isAcceptable()) {
                         System.out.println("Accepting connection");
                         accept(key);
                     }
-                    /**
-                     * If you already read the comments in the accept() method, then you know we changed
-                     * the OPERATION to OP_WRITE. This means that one of these keys in the iterator will return
-                     * a channel that is writable (key.isWritable()). The write() method will explain further.
-                     */
                     else if (key.isWritable()) {
                         System.out.println("Writing...");
                         write(key);
                     }
-                    /**
-                     * If you already read the comments in the write method then you understand that we registered
-                     * the OPERATION OP_READ. That means that on the next Selector.select(), there is probably a key
-                     * that is ready to read (key.isReadable()). The read() method will explain further.
-                     */
                     else if (key.isReadable()) {
                         System.out.println("Reading connection");
                         read(key);
