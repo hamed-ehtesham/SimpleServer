@@ -73,11 +73,8 @@ public class RegisterRequest {
         this.respond = respond;
     }
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
-        RegisterRequest request = new RegisterRequest("alijaf@gmail.com", "i,d[", "ali", "jafari", "aliJ");
+        RegisterRequest request = new RegisterRequest("ali_jafa@gmail.com", "i,d[", "ali", "jafari", "aliJ");
         request.request();
     }
 
@@ -86,6 +83,19 @@ public class RegisterRequest {
 
         public request(String ADDRESS, int PORT) {
             super(ADDRESS, PORT);
+        }
+
+        @Override
+        protected void connect(SelectionKey key) throws IOException {
+            SocketChannel channel = (SocketChannel) key.channel();
+            if (channel.isConnectionPending()) {
+                channel.finishConnect();
+            }
+            channel.configureBlocking(false);
+
+            //Prepare key for receive server's public key from server
+            SelectionKey readKey = channel.register(selector, SelectionKey.OP_READ);
+            readKey.attach(ConnectionSteps.Registration.PUBLIC_KEY);
         }
 
         @Override
@@ -119,15 +129,7 @@ public class RegisterRequest {
             switch ((ConnectionSteps.Registration) key.attachment()) {
                 case SYMMETRIC_KEY: {
                     if (sealedObject != null) {
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        ObjectOutputStream oos = new ObjectOutputStream(bos);
-                        SealedObject[] soa = new SealedObject[]{sealedObject};
-                        oos.writeObject(soa);
-                        oos.flush();
-
-                        ByteBuffer buffer = ByteBuffer.wrap(bos.toByteArray());
-                        channel.write(buffer);
-//                    System.out.println(new String(buffer.array()));
+                        ChannelHelper.writeObject(channel, sealedObject);
                         key.attach(ConnectionSteps.Registration.REG_INFO);
                     }
 

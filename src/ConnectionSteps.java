@@ -12,6 +12,7 @@ public class ConnectionSteps {
             this.attachment = attachment;
         }
     }
+
     public enum Login {
         PUBLIC_KEY, SYMMETRIC_KEY, LOGIN_INFO, LOGIN_RESPOND;
 
@@ -25,7 +26,8 @@ public class ConnectionSteps {
             this.attachment = attachment;
         }
     }
-    public enum Message {
 
+    public enum Messaging {
+        IDLE, MESSAGE_INFO, MESSAGE_RESPOND
     }
 }
