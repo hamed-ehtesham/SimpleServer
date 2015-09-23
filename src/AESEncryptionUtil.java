@@ -16,9 +16,6 @@ public class AESEncryptionUtil {
 
     private SecretKeySpec secretKey;
 
-    private String decryptedString;
-    private String encryptedString;
-
     public AESEncryptionUtil(String secretKey) {
         this.setKey(secretKey);
     }
@@ -29,12 +26,9 @@ public class AESEncryptionUtil {
         MessageDigest sha = null;
         try {
             byte[] key = myKey.getBytes("UTF-8");
-            System.out.println(key.length);
             sha = MessageDigest.getInstance("SHA-1");
             key = sha.digest(key);
             key = Arrays.copyOf(key, 16); // use only first 128 bit
-            System.out.println(key.length);
-            System.out.println(new String(key, "UTF-8"));
             secretKey = new SecretKeySpec(key, "AES");
 
 
@@ -49,22 +43,6 @@ public class AESEncryptionUtil {
 
     }
 
-    public String getDecryptedString() {
-        return decryptedString;
-    }
-
-    public void setDecryptedString(String decryptedString) {
-        this.decryptedString = decryptedString;
-    }
-
-    public String getEncryptedString() {
-        return encryptedString;
-    }
-
-    public void setEncryptedString(String encryptedString) {
-        this.encryptedString = encryptedString;
-    }
-
     public String encrypt(String strToEncrypt) {
         try {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -72,7 +50,7 @@ public class AESEncryptionUtil {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 
 
-            setEncryptedString(Base64.encodeBase64String(cipher.doFinal(strToEncrypt.getBytes("UTF-8"))));
+            return Base64.encodeBase64String(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
 
         } catch (Exception e) {
 
@@ -86,7 +64,7 @@ public class AESEncryptionUtil {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
 
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            setDecryptedString(new String(cipher.doFinal(Base64.decodeBase64(strToDecrypt))));
+            return new String(cipher.doFinal(Base64.decodeBase64(strToDecrypt)));
 
         } catch (Exception e) {
 
@@ -133,20 +111,16 @@ public class AESEncryptionUtil {
 
     public static void main(String args[]) {
         final String strToEncrypt = "My text to encrypt";
-        final String strPssword = "encryptor key";
-        AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(strPssword);
-        aesEncryptionUtil.setKey(strPssword);
-
-        aesEncryptionUtil.encrypt(strToEncrypt.trim());
+        final String strPassword = "encryptor key";
+        AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(strPassword);
 
         System.out.println("String to Encrypt: " + strToEncrypt);
-        System.out.println("Encrypted: " + aesEncryptionUtil.getEncryptedString());
+        System.out.println("Encrypted: " + aesEncryptionUtil.encrypt(strToEncrypt.trim()));
 
-        final String strToDecrypt = aesEncryptionUtil.getEncryptedString();
-        aesEncryptionUtil.decrypt(strToDecrypt.trim());
+        final String strToDecrypt = aesEncryptionUtil.encrypt(strToEncrypt.trim());
 
         System.out.println("String To Decrypt : " + strToDecrypt);
-        System.out.println("Decrypted : " + aesEncryptionUtil.getDecryptedString());
+        System.out.println("Decrypted : " + aesEncryptionUtil.decrypt(strToDecrypt.trim()));
 
     }
 

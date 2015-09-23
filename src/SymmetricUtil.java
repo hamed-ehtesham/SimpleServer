@@ -20,7 +20,6 @@ public final class SymmetricUtil {
         sessionID.append('_');
         sessionID.append(ip);
         AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(secretKey);
-        aesEncryptionUtil.encrypt(sessionID.toString());
-        return aesEncryptionUtil.getEncryptedString();
+        return aesEncryptionUtil.encrypt(sessionID.toString());
     }
 }
