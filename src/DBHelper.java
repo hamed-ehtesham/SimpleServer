@@ -72,9 +72,6 @@ public class DBHelper {
                     // decrypt password by person_salt
                     AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(rs.getString("person_salt"));
                     String password = aesEncryptionUtil.decrypt(rs.getString("person_password"));
-                    System.out.println(rs.getString("person_salt"));
-                    System.out.println(password);
-                    System.out.println(rs.getString("person_isremove"));
                     //check password and isremove
                     if (password.equals(requestInfo.getPassword()) && rs.getInt("person_isremove") == 0) {
                         respondInfo.setMessage("Login  successful");
