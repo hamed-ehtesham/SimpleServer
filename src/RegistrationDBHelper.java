@@ -10,6 +10,13 @@ public class RegistrationDBHelper {
         DBUtil dbUtil = new DBUtil();
         dbUtil.connectToDB("server_admin", "sdfcldkd", "chat_server");
         PreparedStatement preparedStatement = null;
+
+        //email validation
+        if(ValidationUtil.validateEmail(requestInfo.getEmail())){
+            respondInfo.setSucceed(false);
+            respondInfo.setMessage("email not valid");
+        }
+
         try {
             preparedStatement = dbUtil.getConnection().prepareStatement("INSERT INTO person (person_email,\n" +
                     "person_password,\n" +
