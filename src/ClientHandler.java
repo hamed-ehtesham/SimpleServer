@@ -14,7 +14,7 @@ public abstract class ClientHandler implements Runnable {
     public final int PORT;
     public final long TIMEOUT;
 
-    private Selector selector;
+    protected Selector selector;
     protected String symmetricKey;
 
     public ClientHandler(String ADDRESS, int PORT) {
@@ -72,17 +72,7 @@ public abstract class ClientHandler implements Runnable {
         }
     }
 
-    private void connect(SelectionKey key) throws IOException {
-        SocketChannel channel = (SocketChannel) key.channel();
-        if (channel.isConnectionPending()) {
-            channel.finishConnect();
-        }
-        channel.configureBlocking(false);
-
-        //Prepare key for receive server's public key from server
-        SelectionKey readKey = channel.register(selector, SelectionKey.OP_READ);
-        readKey.attach(ConnectionSteps.Registration.PUBLIC_KEY);
-    }
+    protected abstract void connect(SelectionKey key) throws IOException;
 
     protected abstract void write(SelectionKey key) throws IOException;
 

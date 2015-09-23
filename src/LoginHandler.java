@@ -7,19 +7,19 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
 /**
- * Created by Hamed on 9/19/2015.
+ * Created by Mohammad Amin on 23/09/2015.
  */
-public class RegisterHandler extends ServerHandler {
+public class LoginHandler extends ServerHandler {
     private String symmetricKey;
 
-    public RegisterHandler(String ADDRESS, int PORT, long TIMEOUT) {
+    public LoginHandler(String ADDRESS, int PORT, long TIMEOUT) {
         super(ADDRESS, PORT, TIMEOUT);
         init();
     }
 
     public static void main(String[] args) {
-        RegisterHandler registerHandler = new RegisterHandler("localhost", 8511, 10000);
-        Thread thread = new Thread(registerHandler);
+        LoginHandler loginHandler = new LoginHandler("localhost",8513,10000);
+        Thread thread = new Thread(loginHandler);
         thread.start();
     }
 
@@ -31,13 +31,13 @@ public class RegisterHandler extends ServerHandler {
 
         //Prepare key for send server's public key to client
         SelectionKey writeKey = socketChannel.register(selector, SelectionKey.OP_WRITE);
-        writeKey.attach(ConnectionSteps.Registration.PUBLIC_KEY);
+        writeKey.attach(ConnectionSteps.Login.PUBLIC_KEY);
     }
 
     @Override
     protected void write(SelectionKey key) throws IOException {
         SocketChannel channel = (SocketChannel) key.channel();
-        switch ((ConnectionSteps.Registration) key.attachment()) {
+        switch ((ConnectionSteps.Login) key.attachment()) {
             case PUBLIC_KEY: {
                 KeyInfo keyInfo = new KeyInfo();
                 keyInfo.setKey(rsaEncryptionUtil.getPublicKey());
@@ -46,34 +46,27 @@ public class RegisterHandler extends ServerHandler {
                 channel.write(buffer);
 //                System.out.println(new String(buffer.array()));
                 key.interestOps(SelectionKey.OP_READ);
-                key.attach(ConnectionSteps.Registration.SYMMETRIC_KEY);
+                key.attach(ConnectionSteps.Login.SYMMETRIC_KEY);
 
                 break;
             }
-            case REG_RESPOND: {
-                RegistrationRespondInfo respondInfo = new RegistrationRespondInfo();
-                ConnectionSteps.Registration respond = (ConnectionSteps.Registration) key.attachment();
+            case LOGIN_RESPOND: {
+                LoginRespondInfo respondInfo = new LoginRespondInfo();
+                ConnectionSteps.Login respond = (ConnectionSteps.Login) key.attachment();
                 try {
-                    RegistrationRequestInfo requestInfo = (RegistrationRequestInfo) respond.getAttachment();
+                    LoginRequestInfo requestInfo = (LoginRequestInfo) respond.getAttachment();
 
-                    if (requestInfo != null) {
-                        AESEncryptionUtil encryptionUtil = new AESEncryptionUtil(symmetricKey);
-                        requestInfo.setPassword(encryptionUtil.encrypt(requestInfo.getPassword()));
-                        respondInfo = DBHelper.register(requestInfo, symmetricKey);
-                        if (respondInfo.getSucceed()) {
-                            // TODO: automatic login to server using email and password
-                            LoginRequest request = new LoginRequest(requestInfo.getEmail(), requestInfo.getPassword());
-                            request.request();
-                            LoginRespondInfo loginRespondInfo = request.getRespond();
-                            System.out.println(loginRespondInfo);
+                    if(requestInfo != null) {
+                        respondInfo = DBHelper.login(requestInfo, symmetricKey, channel.getRemoteAddress());
+                        if(respondInfo.getSucceed()) {
+                            //Login successful
                         }
                     } else {
                         throw new IOException("requestInfo not received!");
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
                     respondInfo.setSucceed(false);
-                    respondInfo.setMessage("Register failure");
+                    respondInfo.setMessage("Login failure");
                 }
 
 
@@ -92,7 +85,7 @@ public class RegisterHandler extends ServerHandler {
     protected void read(SelectionKey key) throws IOException {
         ByteArrayOutputStream bos = ChannelHelper.read(key);
         byte[] data = bos.toByteArray();
-        switch ((ConnectionSteps.Registration) key.attachment()) {
+        switch ((ConnectionSteps.Login) key.attachment()) {
             case SYMMETRIC_KEY: {
                 SealedObject sealedObject = ChannelHelper.readObject(data, SealedObject.class);
                 if (sealedObject != null) {
@@ -102,17 +95,17 @@ public class RegisterHandler extends ServerHandler {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    key.attach(ConnectionSteps.Registration.REG_INFO);
+                    key.attach(ConnectionSteps.Login.LOGIN_INFO);
                 }
                 break;
             }
-            case REG_INFO: {
+            case LOGIN_INFO: {
                 AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(symmetricKey);
                 data = aesEncryptionUtil.decrypt(data);
-                RegistrationRequestInfo requestInfo = XMLUtil.unmarshal(RegistrationRequestInfo.class, data);
+                LoginRequestInfo requestInfo = XMLUtil.unmarshal(LoginRequestInfo.class, data);
                 System.out.println(requestInfo);
                 key.interestOps(SelectionKey.OP_WRITE);
-                ConnectionSteps.Registration respond = ConnectionSteps.Registration.REG_RESPOND;
+                ConnectionSteps.Login respond = ConnectionSteps.Login.LOGIN_RESPOND;
                 respond.setAttachment(requestInfo);
                 key.attach(respond);
                 break;
