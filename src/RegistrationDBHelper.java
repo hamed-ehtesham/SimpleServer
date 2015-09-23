@@ -43,21 +43,22 @@ public class RegistrationDBHelper {
         return respondInfo;
     }
 
-    public static LoginRespondInfo login(LoginRequestInfo requestInfo , String symmetricKey , SocketAddress ip) {
+    public static LoginRespondInfo login(LoginRequestInfo requestInfo , String symmetricKey , String ip) {
         LoginRespondInfo respondInfo = new LoginRespondInfo();
         DBUtil dbUtil = new DBUtil();
         dbUtil.connectToDB("server_admin", "sdfcldkd", "chat_server");
-        Connection connection = null;
+
         try {
-            Statement stmt = dbUtil.getConnection().createStatement();
+            Connection con = dbUtil.getConnection();
             ResultSet rs;
 
-            rs = stmt.executeQuery("SELECT person_password, "
+            PreparedStatement prs = con.prepareStatement("SELECT person_password, "
                     + "person_salt, "
                     + "person_isremove "
                     + "FROM person "
-                    + "WHERE ( person_email = " + requestInfo.getEmail() + ")");
-
+                    + "WHERE ( person_email = ?)");
+            prs.setString(1,requestInfo.getEmail());
+            rs = prs.executeQuery();
             try {
                 while (rs.next()) {
                     // decrypt password by person_salt
@@ -120,4 +121,9 @@ public class RegistrationDBHelper {
         dbUtil.close();
         return respondInfo;
     }
+    /*public static void login(RegistrationRequestInfo requestInfo , String symmetricKey , String ip) {
+
+
+    }*/
+
 }

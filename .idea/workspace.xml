@@ -23,14 +23,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="LoginRequestInfo.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/LoginRequestInfo.java">
+      <file leaf-file-name="RegistrationDBHelper.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/RegistrationDBHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2589928">
-              <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+            <state vertical-scroll-proportion="1.910072">
+              <caret line="62" column="9" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
               <folding>
-                <element signature="e#270#271#0" expanded="true" />
-                <element signature="e#298#299#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <marker date="1443032554442" expanded="true" signature="544:801" placeholder="INSERT INTO ..." />
+                <marker date="1443032554442" expanded="true" signature="2389:2579" placeholder="SELECT perso..person..." />
+                <marker date="1443032554442" expanded="true" signature="3442:3765" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
@@ -68,7 +70,6 @@
         <option value="$PROJECT_DIR$/src/RSAEncryption.java" />
         <option value="$PROJECT_DIR$/src/AES.java" />
         <option value="$PROJECT_DIR$/src/AESUtil.java" />
-        <option value="$PROJECT_DIR$/src/SymmetricUtil.java" />
         <option value="$PROJECT_DIR$/src/AESEncryptionUtil.java" />
         <option value="$PROJECT_DIR$/src/DBUtil.java" />
         <option value="$PROJECT_DIR$/src/RegistrationRequestInfo.java" />
@@ -79,9 +80,12 @@
         <option value="$PROJECT_DIR$/src/ClientHandler.java" />
         <option value="$PROJECT_DIR$/src/RegisterRequest.java" />
         <option value="$PROJECT_DIR$/src/ConnectionSteps.java" />
-        <option value="$PROJECT_DIR$/src/RegisterHandler.java" />
-        <option value="$PROJECT_DIR$/src/RegistrationDBHelper.java" />
         <option value="$PROJECT_DIR$/src/LoginRequestInfo.java" />
+        <option value="$PROJECT_DIR$/src/SymmetricUtil.java" />
+        <option value="$PROJECT_DIR$/src/LoginHandler.java" />
+        <option value="$PROJECT_DIR$/src/RegisterHandler.java" />
+        <option value="$PROJECT_DIR$/src/LoginRequest.java" />
+        <option value="$PROJECT_DIR$/src/RegistrationDBHelper.java" />
       </list>
     </option>
   </component>
@@ -347,15 +351,15 @@
       <updated>1442739122475</updated>
       <workItem from="1442739131042" duration="49824000" />
       <workItem from="1442926039521" duration="38493000" />
-      <workItem from="1443028534462" duration="1466000" />
+      <workItem from="1443028534462" duration="4007000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89783000" />
+    <option name="totallyTimeSpent" value="92324000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -619,65 +623,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MessagingHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7410072">
-          <caret line="147" column="5" selection-start-line="14" selection-start-column="4" selection-end-line="147" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ServerHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RegisterRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#819#820#0" expanded="true" />
-            <element signature="e#847#848#0" expanded="true" />
-            <element signature="e#889#890#0" expanded="true" />
-            <element signature="e#923#924#0" expanded="true" />
-            <element signature="e#958#959#0" expanded="true" />
-            <element signature="e#989#990#0" expanded="true" />
-            <element signature="e#1037#1038#0" expanded="true" />
-            <element signature="e#1077#1078#0" expanded="true" />
-            <element signature="e#1113#1114#0" expanded="true" />
-            <element signature="e#1145#1146#0" expanded="true" />
-            <element signature="e#1195#1196#0" expanded="true" />
-            <element signature="e#1237#1238#0" expanded="true" />
-            <element signature="e#1272#1273#0" expanded="true" />
-            <element signature="e#1303#1304#0" expanded="true" />
-            <element signature="e#1351#1352#0" expanded="true" />
-            <element signature="e#1391#1392#0" expanded="true" />
-            <element signature="e#1426#1427#0" expanded="true" />
-            <element signature="e#1457#1458#0" expanded="true" />
-            <element signature="e#1505#1506#0" expanded="true" />
-            <element signature="e#1545#1546#0" expanded="true" />
-            <element signature="e#2087#2088#0" expanded="true" />
-            <element signature="e#2131#2132#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LoginRespondInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.32014388">
@@ -714,23 +659,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/RegistrationDBHelper.java">
+    <entry file="file://$PROJECT_DIR$/src/ServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1942446">
-          <caret line="93" column="120" selection-start-line="93" selection-start-column="120" selection-end-line="93" selection-end-column="120" />
+        <state vertical-scroll-proportion="0.33290654">
+          <caret line="91" column="93" selection-start-line="91" selection-start-column="85" selection-end-line="91" selection-end-column="93" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1443029911779" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1443029911779" expanded="true" signature="-1:-1" placeholder="SELECT perso..person..." />
-            <marker date="1443029911779" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/RegisterHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/LoginRespondInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.4244604">
-          <caret line="53" column="62" selection-start-line="53" selection-start-column="62" selection-end-line="53" selection-end-column="62" />
+        <state vertical-scroll-proportion="0.0323741">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MessagingHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0">
+          <caret line="134" column="13" selection-start-line="134" selection-start-column="13" selection-end-line="134" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -739,8 +689,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SymmetricUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4532374">
-          <caret line="16" column="44" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="61" selection-start-line="14" selection-start-column="61" selection-end-line="14" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LoginHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.618705">
+          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -749,11 +709,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/LoginRequestInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2589928">
+        <state vertical-scroll-proportion="0.15827338">
           <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LoginRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.0719423">
+          <caret line="115" column="30" selection-start-line="115" selection-start-column="28" selection-end-line="115" selection-end-column="30" />
           <folding>
-            <element signature="e#270#271#0" expanded="true" />
-            <element signature="e#298#299#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RegisterRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8705036">
+          <caret line="169" column="5" selection-start-line="12" selection-start-column="3" selection-end-line="169" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RegisterHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5827338">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RegistrationDBHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.910072">
+          <caret line="62" column="9" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1443032554442" expanded="true" signature="544:801" placeholder="INSERT INTO ..." />
+            <marker date="1443032554442" expanded="true" signature="2389:2579" placeholder="SELECT perso..person..." />
+            <marker date="1443032554442" expanded="true" signature="3442:3765" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
