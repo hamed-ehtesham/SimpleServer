@@ -9,22 +9,28 @@ import java.util.Iterator;
  * Created by Hamed on 9/19/2015.
  */
 public class RegisterRequest {
-    private String username;
+    private String email;
     private String password;
+    private String firstName;
+    private String lastName;
+    private String nickname;
     private String symmetricKey;
     private RegistrationRespondInfo respond;
 
-    public RegisterRequest(String username, String password) {
-        this.username = username;
+    public RegisterRequest(String email, String password, String firstName, String lastName, String nickname) {
+        this.email = email;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickname = nickname;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -33,6 +39,30 @@ public class RegisterRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public RegistrationRespondInfo getRespond() {
@@ -47,7 +77,7 @@ public class RegisterRequest {
      * @param args
      */
     public static void main(String[] args) {
-        RegisterRequest request = new RegisterRequest("ali Jafari", "Jafari");
+        RegisterRequest request = new RegisterRequest("alij@gmail.com","i,d[","ali","jafari","aliJ");
         request.request();
     }
 
@@ -138,11 +168,10 @@ public class RegisterRequest {
 
             switch ((ConnectionSteps.Registration) key.attachment()) {
                 case SYMMETRIC_KEY: {
-                    if(sealedObject != null)
-                    {
+                    if (sealedObject != null) {
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
                         ObjectOutputStream oos = new ObjectOutputStream(bos);
-                        SealedObject [] soa = new SealedObject[] {sealedObject};
+                        SealedObject[] soa = new SealedObject[]{sealedObject};
                         oos.writeObject(soa);
                         oos.flush();
 
@@ -156,8 +185,11 @@ public class RegisterRequest {
                 }
                 case REG_INFO: {
                     RegistrationRequestInfo requestInfo = new RegistrationRequestInfo();
-                    requestInfo.setUsername(getUsername());
+                    requestInfo.setEmail(getEmail());
                     requestInfo.setPassword(getPassword());
+                    requestInfo.setFirstName(getFirstName());
+                    requestInfo.setLastName(getLastName());
+                    requestInfo.setNickname(getNickname());
 
                     ByteBuffer buffer = XMLUtil.marshal(requestInfo);
                     AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(symmetricKey);

@@ -6,16 +6,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class RegistrationRequestInfo extends XMLInfo {
-    String username;
+    String email;
     String password;
+    String firstName;
+    String lastName;
+    String nickname;
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
     @XmlElement
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -27,11 +30,41 @@ public class RegistrationRequestInfo extends XMLInfo {
         this.password = password;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    @XmlElement
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    @XmlElement
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    @XmlElement
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     @Override
     public String toString() {
         return "RegistrationRequestInfo{" +
-                "username='" + username + '\'' +
+                "email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", nickname='" + nickname + '\'' +
                 '}';
     }
 }
