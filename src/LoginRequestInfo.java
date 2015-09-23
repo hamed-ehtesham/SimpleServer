@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LoginRequestInfo extends XMLInfo {
     String email;
     String password;
-    String ip;
 
     public String getEmail() {
         return email;
@@ -18,16 +17,6 @@ public class LoginRequestInfo extends XMLInfo {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getIP() {
-        return ip;
-    }
-
-    @XmlElement
-    public void setIP(String ip) {
-        this.ip = ip;
-    }
-
 
     public String getPassword() {
         return password;
