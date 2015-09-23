@@ -42,4 +42,8 @@ public class RegistrationDBHelper {
         dbUtil.close();
         return respondInfo;
     }
+
+    public static void login(LoginRequestInfo requestInfo) {
+
+    }
 }

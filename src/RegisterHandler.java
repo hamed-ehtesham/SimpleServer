@@ -168,8 +168,9 @@ public class RegisterHandler implements Runnable {
                     if(requestInfo != null) {
                         respondInfo = RegistrationDBHelper.register(requestInfo);
                         if(respondInfo.getSucceed()) {
-                            String sessionID = SymmetricUtil.getSessionID(requestInfo.getEmail(), channel.getRemoteAddress(), symmetricKey);
-                            respondInfo.setSessionID(sessionID);
+                            // TODO: automatic login to server using email and password
+//                            String sessionID = SymmetricUtil.getSessionID(requestInfo.getEmail(), channel.getRemoteAddress(), symmetricKey);
+//                            respondInfo.setSessionID(sessionID);
                         }
                     } else {
                         throw new IOException("requestInfo not received!");
