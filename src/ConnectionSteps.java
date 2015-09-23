@@ -12,10 +12,12 @@ public class ConnectionSteps {
             this.attachment = attachment;
         }
     }
+
     public enum Login {
 
     }
-    public enum Message {
 
+    public enum Messaging {
+        IDLE, MESSAGE_INFO, MESSAGE_RESPOND
     }
 }

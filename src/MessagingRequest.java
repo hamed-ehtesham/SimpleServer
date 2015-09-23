@@ -1,80 +1,30 @@
 import javax.crypto.SealedObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 
 /**
- * Created by Hamed on 9/19/2015.
+ * Created by Hamed on 9/23/2015.
  */
-public class RegisterRequest {
-    private String email;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String nickname;
-    private RegistrationRespondInfo respond;
+public class MessagingRequest {
+    String sessionID;
 
-    public RegisterRequest(String email, String password, String firstName, String lastName, String nickname) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nickname = nickname;
+    public MessagingRequest(String sessionID) {
+        this.sessionID = sessionID;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSessionID() {
+        return sessionID;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public RegistrationRespondInfo getRespond() {
-        return respond;
-    }
-
-    public void setRespond(RegistrationRespondInfo respond) {
-        this.respond = respond;
+    public void setSessionID(String sessionID) {
+        this.sessionID = sessionID;
     }
 
     public static void main(String[] args) {
-        RegisterRequest request = new RegisterRequest("ali_j@gmail.com", "i,d[", "ali", "jafari", "aliJ");
+        MessagingRequest request = new MessagingRequest("test session id");
         request.request();
     }
 

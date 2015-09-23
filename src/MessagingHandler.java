@@ -33,15 +33,26 @@ public class MessagingHandler extends ServerHandler {
 
         //Prepare key for send server's public key to client
         SelectionKey writeKey = socketChannel.register(selector, SelectionKey.OP_WRITE);
-        writeKey.attach(ConnectionSteps.Registration.PUBLIC_KEY);
+        writeKey.attach(ConnectionSteps.Messaging.MESSAGE_INFO);
     }
 
     @Override
     protected void write(SelectionKey key) throws IOException {
         SocketChannel channel = (SocketChannel) key.channel();
 
-        switch ((ConnectionSteps.Registration) key.attachment()) {
-            case PUBLIC_KEY: {
+        switch ((ConnectionSteps.Messaging) key.attachment()) {
+            case IDLE: {
+                //see if new message is available
+                break;
+            }
+            case MESSAGE_INFO: {
+                break;
+            }
+            case MESSAGE_RESPOND: {
+
+                break;
+            }
+             case PUBLIC_KEY: {
                 KeyInfo keyInfo = new KeyInfo();
                 keyInfo.setKey(rsaEncryptionUtil.getPublicKey());
 
@@ -90,7 +101,16 @@ public class MessagingHandler extends ServerHandler {
     protected void read(SelectionKey key) throws IOException {
         ByteArrayOutputStream bos = ChannelHelper.read(key);
         byte[] data = bos.toByteArray();
-        switch ((ConnectionSteps.Registration) key.attachment()) {
+        switch ((ConnectionSteps.Messaging) key.attachment()) {
+            case IDLE: {
+                break;
+            }
+            case MESSAGE_INFO: {
+                break;
+            }
+            case MESSAGE_RESPOND: {
+                break;
+            }
             case SYMMETRIC_KEY: {
                 ByteArrayInputStream bis = new ByteArrayInputStream(data);
                 ObjectInputStream ois = new ObjectInputStream(bis);
