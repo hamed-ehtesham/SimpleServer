@@ -3,6 +3,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 
@@ -70,8 +71,7 @@ public class LoginRequest {
 
         @Override
         protected void read(SelectionKey key) throws IOException {
-            ByteArrayOutputStream bos = ChannelHelper.read(key);
-            byte[] data = bos.toByteArray();
+            byte[] data = ChannelHelper.read(key);
             switch ((ConnectionSteps.Login) key.attachment()) {
                 case PUBLIC_KEY: {
                     KeyInfo keyInfo = XMLUtil.unmarshal(KeyInfo.class, data);
@@ -85,6 +85,9 @@ public class LoginRequest {
                     LoginRespondInfo respondInfo = XMLUtil.unmarshal(LoginRespondInfo.class, data);
                     setRespond(respondInfo);
                     System.out.println(respondInfo);
+                    if(respondInfo.getSucceed()) {
+
+                    }
                     key.cancel();
                     Thread.currentThread().interrupt();
                     break;
@@ -111,8 +114,7 @@ public class LoginRequest {
                     requestInfo.setPassword(getPassword());
 
                     ByteBuffer buffer = XMLUtil.marshal(requestInfo);
-                    AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(symmetricKey);
-                    buffer = aesEncryptionUtil.encrypt(buffer);
+                    buffer = ChannelHelper.encrypt(buffer,symmetricKey);
                     channel.write(buffer);
 //                    System.out.println(new String(buffer.array()));
                     key.interestOps(SelectionKey.OP_READ);

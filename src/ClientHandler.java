@@ -14,6 +14,7 @@ public abstract class ClientHandler implements Runnable {
     public final int PORT;
     public final long TIMEOUT;
 
+    protected SelectionKey selectionKey;
     protected Selector selector;
     protected String symmetricKey;
 
@@ -27,6 +28,11 @@ public abstract class ClientHandler implements Runnable {
         this.TIMEOUT = TIMEOUT;
     }
 
+    public SelectionKey getSelectionKey() {
+            while (selectionKey == null);
+            return selectionKey;
+    }
+
     @Override
     public void run() {
         SocketChannel channel;
@@ -37,7 +43,7 @@ public abstract class ClientHandler implements Runnable {
 
             symmetricKey = SymmetricUtil.nextSymmetricKey();
 
-            channel.register(selector, SelectionKey.OP_CONNECT);
+            selectionKey = channel.register(selector, SelectionKey.OP_CONNECT);
             channel.connect(new InetSocketAddress(ADDRESS, PORT));
 
             while (!Thread.interrupted()) {

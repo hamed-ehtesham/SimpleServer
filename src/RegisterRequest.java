@@ -15,7 +15,7 @@ public class RegisterRequest {
     private String firstName;
     private String lastName;
     private String nickname;
-    private RegistrationRespondInfo respond;
+    private RespondInfo respond;
 
     public RegisterRequest(String email, String password, String firstName, String lastName, String nickname) {
         this.email = email;
@@ -65,11 +65,11 @@ public class RegisterRequest {
         this.nickname = nickname;
     }
 
-    public RegistrationRespondInfo getRespond() {
+    public RespondInfo getRespond() {
         return respond;
     }
 
-    public void setRespond(RegistrationRespondInfo respond) {
+    public void setRespond(RespondInfo respond) {
         this.respond = respond;
     }
 
@@ -100,8 +100,7 @@ public class RegisterRequest {
 
         @Override
         protected void read(SelectionKey key) throws IOException {
-            ByteArrayOutputStream bos = ChannelHelper.read(key);
-            byte[] data = bos.toByteArray();
+            byte[] data = ChannelHelper.read(key);
             switch ((ConnectionSteps.Registration) key.attachment()) {
                 case PUBLIC_KEY: {
                     KeyInfo keyInfo = XMLUtil.unmarshal(KeyInfo.class, data);
@@ -112,7 +111,7 @@ public class RegisterRequest {
                     break;
                 }
                 case REG_RESPOND: {
-                    RegistrationRespondInfo respondInfo = XMLUtil.unmarshal(RegistrationRespondInfo.class, data);
+                    RespondInfo respondInfo = XMLUtil.unmarshal(RespondInfo.class, data);
                     setRespond(respondInfo);
                     System.out.println(respondInfo);
                     if(respondInfo.getSucceed())
@@ -151,8 +150,7 @@ public class RegisterRequest {
                     requestInfo.setNickname(getNickname());
 
                     ByteBuffer buffer = XMLUtil.marshal(requestInfo);
-                    AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(symmetricKey);
-                    buffer = aesEncryptionUtil.encrypt(buffer);
+                    buffer = ChannelHelper.encrypt(buffer, symmetricKey);
                     channel.write(buffer);
 //                    System.out.println(new String(buffer.array()));
                     key.interestOps(SelectionKey.OP_READ);

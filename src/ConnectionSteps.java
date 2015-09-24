@@ -28,6 +28,16 @@ public class ConnectionSteps {
     }
 
     public enum Messaging {
-        IDLE, MESSAGE_INFO, MESSAGE_RESPOND
+        IDENTIFICATION, SYNC_RESPOND, IDLE, MESSAGE_INFO, MESSAGE_RESPOND;
+
+        private Object attachment;
+
+        public Object getAttachment() {
+            return attachment;
+        }
+
+        public void setAttachment(Object attachment) {
+            this.attachment = attachment;
+        }
     }
 }

@@ -1,6 +1,7 @@
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
 public class MessageInfo extends XMLInfo {
     String sender;
     Recipient recipient;
-    Date time;
+    Timestamp time;
     String session;
     String content;
     AttachmentURL attachmentURL;
@@ -33,12 +34,12 @@ public class MessageInfo extends XMLInfo {
         this.recipient = recipient;
     }
 
-    public Date getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
     @XmlElement
-    public void setTime(Date time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 

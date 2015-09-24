@@ -83,8 +83,7 @@ public class LoginHandler extends ServerHandler {
 
     @Override
     protected void read(SelectionKey key) throws IOException {
-        ByteArrayOutputStream bos = ChannelHelper.read(key);
-        byte[] data = bos.toByteArray();
+        byte[] data = ChannelHelper.read(key);
         switch ((ConnectionSteps.Login) key.attachment()) {
             case SYMMETRIC_KEY: {
                 SealedObject sealedObject = ChannelHelper.readObject(data, SealedObject.class);
@@ -100,8 +99,7 @@ public class LoginHandler extends ServerHandler {
                 break;
             }
             case LOGIN_INFO: {
-                AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(symmetricKey);
-                data = aesEncryptionUtil.decrypt(data);
+                data = ChannelHelper.decrypt(data,symmetricKey);
                 LoginRequestInfo requestInfo = XMLUtil.unmarshal(LoginRequestInfo.class, data);
                 System.out.println(requestInfo);
                 key.interestOps(SelectionKey.OP_WRITE);

@@ -51,7 +51,7 @@ public class RegisterHandler extends ServerHandler {
                 break;
             }
             case REG_RESPOND: {
-                RegistrationRespondInfo respondInfo = new RegistrationRespondInfo();
+                RespondInfo respondInfo = new RespondInfo();
                 ConnectionSteps.Registration respond = (ConnectionSteps.Registration) key.attachment();
                 try {
                     RegistrationRequestInfo requestInfo = (RegistrationRequestInfo) respond.getAttachment();
@@ -83,8 +83,7 @@ public class RegisterHandler extends ServerHandler {
 
     @Override
     protected void read(SelectionKey key) throws IOException {
-        ByteArrayOutputStream bos = ChannelHelper.read(key);
-        byte[] data = bos.toByteArray();
+        byte[] data = ChannelHelper.read(key);
         switch ((ConnectionSteps.Registration) key.attachment()) {
             case SYMMETRIC_KEY: {
                 SealedObject sealedObject = ChannelHelper.readObject(data, SealedObject.class);
