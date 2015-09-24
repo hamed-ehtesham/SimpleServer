@@ -1,7 +1,6 @@
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ public class GroupInfo extends XMLInfo {
     int id;
     String name;
     String owner;
-    Members member;
+    List<GroupMemberInfo> members = new ArrayList<GroupMemberInfo>();
 
     public int getId() {
         return this.id;
@@ -41,31 +40,14 @@ public class GroupInfo extends XMLInfo {
         this.owner = owner;
     }
 
-    public Members getMember() {
-        return this.member;
+    public List<GroupMemberInfo> getMembers() {
+        return this.members;
     }
 
     @XmlElement
-    public void setMember(Members member) {
-        this.member = member;
+    public void setMembers(List<GroupMemberInfo> members) {
+         this.members = members;
     }
-
-
-    @XmlRootElement
-    public class Members {
-        @XmlList
-        List<String> member;
-
-        public List<String> getMembers() {
-            return this.member;
-        }
-
-        @XmlElement
-        public void setMember(String member) {
-            this.member.add(member);
-        }
-    }
-
 
 }
 
