@@ -30,4 +30,17 @@ public class ConnectionSteps {
     public enum Messaging {
         IDLE, MESSAGE_INFO, MESSAGE_RESPOND
     }
+
+    public enum GroupCreate{
+        GROUP_CREATE_INFO , GROUP_INFO;
+        private Object attachment;
+
+        public Object getAttachment() {
+            return attachment;
+        }
+
+        public void setAttachment(Object attachment) {
+            this.attachment = attachment;
+        }
+    }
 }

@@ -8,10 +8,11 @@ import java.util.List;
  */
 @XmlRootElement
 public class GroupInfo extends XMLInfo {
-    int id;
+    int id=0;
     String name;
     String owner;
     List<GroupMemberInfo> members = new ArrayList<GroupMemberInfo>();
+
 
     public int getId() {
         return this.id;
