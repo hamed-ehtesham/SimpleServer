@@ -1,6 +1,5 @@
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -10,7 +9,7 @@ import java.util.Date;
 public class MessageInfo extends XMLInfo {
     String sender;
     Recipient recipient;
-    Date time;
+    long time;
     String session;
     String content;
     AttachmentURL attachmentURL;
@@ -33,12 +32,12 @@ public class MessageInfo extends XMLInfo {
         this.recipient = recipient;
     }
 
-    public Date getTime() {
+    public long getTime() {
         return time;
     }
 
     @XmlElement
-    public void setTime(Date time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -84,6 +83,7 @@ public class MessageInfo extends XMLInfo {
     @XmlRootElement
     static class Recipient {
         RecipientType rType;
+        String recipient;
 
         public enum RecipientType {
             PERSON ("PERSON"), GROUP ("GROUP");
@@ -110,17 +110,28 @@ public class MessageInfo extends XMLInfo {
             this.rType = rType;
         }
 
+        public String getRecipient() {
+            return recipient;
+        }
+
+        @XmlValue
+        public void setRecipient(String recipient) {
+            this.recipient = recipient;
+        }
+
         @Override
         public String toString() {
             return "Recipient{" +
                     "rType=" + rType +
+                    ", recipient='" + recipient + '\'' +
                     '}';
         }
     }
 
     @XmlRootElement
-    public class AttachmentURL {
+    static class AttachmentURL {
         String fileType;
+        String url;
 
         public String getFileType() {
             return fileType;
@@ -131,10 +142,20 @@ public class MessageInfo extends XMLInfo {
             this.fileType = fileType;
         }
 
+        public String getUrl() {
+            return url;
+        }
+
+        @XmlValue
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
         @Override
         public String toString() {
             return "AttachmentURL{" +
                     "fileType='" + fileType + '\'' +
+                    ", url='" + url + '\'' +
                     '}';
         }
     }

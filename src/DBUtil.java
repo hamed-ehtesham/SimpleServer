@@ -30,7 +30,7 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
-    
+
     public void query(String sqlQuery) throws SQLException {
         // Statements allow to issue SQL queries to the database
         statement = connection.createStatement();
@@ -50,10 +50,75 @@ public class DBUtil {
         writeResultSet(resultSet);
     }
 
+    public ArrayList<Object> selectQuery(PreparedStatement sqlQuery) throws SQLException {
+        resultSet = sqlQuery.executeQuery();
+        ArrayList<Object> table = new ArrayList<Object>();
+        ArrayList<Class<?>> columnTypes = getColumnTypes(resultSet);
+        ArrayList<String> columnNames = new ArrayList<String>(columnTypes.size());
+        for (int i = 1; i <= columnTypes.size(); i++) {
+            String columnName = resultSet.getMetaData().getColumnName(i);
+            columnNames.add(columnName);
+        }
+        table.add(columnNames);
+        table.add(columnTypes);
+        while (resultSet.next()) {
+            ArrayList<Object> row = new ArrayList<Object>(columnTypes.size());
+            for (int i = 1; i <= columnTypes.size(); i++) {
+                Object data = null;
+                if (columnTypes.get(i - 1).equals(String.class)) {
+                    data = resultSet.getString(i);
+                } else if (columnTypes.get(i - 1).equals(Integer.class)) {
+                    data = resultSet.getInt(i);
+                } else if (columnTypes.get(i - 1).equals(Long.class)) {
+                    data = resultSet.getLong(i);
+                } else if (columnTypes.get(i - 1).equals(Boolean.class)) {
+                    data = resultSet.getBoolean(i);
+                } else if (columnTypes.get(i - 1).equals(java.util.Date.class)) {
+                    data = resultSet.getDate(i);
+                } else if (columnTypes.get(i - 1).equals(Timestamp.class)) {
+                    data = resultSet.getTimestamp(i);
+                }
+                row.add(data);
+            }
+            table.add(row);
+        }
+        return table;
+    }
+
+    public ArrayList<Object> getRow(ArrayList<Object> table, int index) {
+        ArrayList<Object> row = (ArrayList<Object>) table.get(index + 2);
+        return row;
+    }
+
+    public <T> T getElement(ArrayList<Object> table, int row, int column, Class<T> outputClass) {
+        ArrayList<Object> rowData = getRow(table, row);
+        ArrayList<Class<?>> columnTypes = (ArrayList<Class<?>>) table.get(1);
+        Class<?> columnType = columnTypes.get(column);
+        if (outputClass != columnType)
+            throw new IllegalArgumentException("output class is not correct expect: " + columnType);
+        return (T)rowData.get(column);
+    }
+
+    public void printTable(ArrayList<Object> table) {
+        ArrayList<String> columnNames = (ArrayList<String>) table.get(0);
+        int columnCount = columnNames.size();
+        for (int i = 0; i < columnCount; i++) {
+            System.out.print(columnNames.get(i) + "\t");
+        }
+        System.out.println();
+        for (int i = 2; i < table.size(); i++) {
+            ArrayList<Object> row = (ArrayList<Object>) table.get(i);
+            for (int j = 0; j < columnCount; j++) {
+                System.out.print(row.get(j) + "\t");
+            }
+            System.out.println();
+        }
+    }
+
     private ArrayList<Class<?>> getColumnTypes(ResultSet resultSet) throws SQLException {
         ArrayList<Class<?>> columnTypes = new ArrayList<Class<?>>();
 
-        for  (int i = 1; i<= resultSet.getMetaData().getColumnCount(); i++){
+        for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
             String className = resultSet.getMetaData().getColumnClassName(i);
             try {
                 Class<?> aClass = Class.forName(className);
@@ -73,8 +138,8 @@ public class DBUtil {
         System.out.println("The columns in the table are: ");
 
         System.out.println("Table: " + resultSet.getMetaData().getTableName(1));
-        for  (int i = 1; i<= resultSet.getMetaData().getColumnCount(); i++){
-            System.out.println("Column " +i  + " "+ resultSet.getMetaData().getColumnName(i)+":" +resultSet.getMetaData().getColumnClassName(i));
+        for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+            System.out.println("Column " + i + " " + resultSet.getMetaData().getColumnName(i) + ":" + resultSet.getMetaData().getColumnClassName(i));
         }
     }
 
@@ -82,26 +147,26 @@ public class DBUtil {
         // ResultSet is initially before the first data set
         ArrayList<Class<?>> columnTypes = getColumnTypes(resultSet);
         while (resultSet.next()) {
-            for  (int i = 1; i<= columnTypes.size(); i++){
+            for (int i = 1; i <= columnTypes.size(); i++) {
                 String columnName = resultSet.getMetaData().getColumnName(i);
-                if(columnTypes.get(i - 1).equals(String.class)) {
+                if (columnTypes.get(i - 1).equals(String.class)) {
                     String data = resultSet.getString(i);
-                    System.out.println(columnName + ": "+data);
-                } else if(columnTypes.get(i - 1).equals(Integer.class)) {
+                    System.out.println(columnName + ": " + data);
+                } else if (columnTypes.get(i - 1).equals(Integer.class)) {
                     int data = resultSet.getInt(i);
-                    System.out.println(columnName + ": "+data);
-                } else if(columnTypes.get(i - 1).equals(Long.class)) {
+                    System.out.println(columnName + ": " + data);
+                } else if (columnTypes.get(i - 1).equals(Long.class)) {
                     long data = resultSet.getLong(i);
-                    System.out.println(columnName + ": "+data);
-                } else if(columnTypes.get(i - 1).equals(Boolean.class)) {
+                    System.out.println(columnName + ": " + data);
+                } else if (columnTypes.get(i - 1).equals(Boolean.class)) {
                     boolean data = resultSet.getBoolean(i);
-                    System.out.println(columnName + ": "+data);
-                } else if(columnTypes.get(i - 1).equals(java.util.Date.class)) {
+                    System.out.println(columnName + ": " + data);
+                } else if (columnTypes.get(i - 1).equals(java.util.Date.class)) {
                     Date data = resultSet.getDate(i);
-                    System.out.println(columnName + ": "+data);
-                } else if(columnTypes.get(i - 1).equals(Timestamp.class)) {
+                    System.out.println(columnName + ": " + data);
+                } else if (columnTypes.get(i - 1).equals(Timestamp.class)) {
                     Timestamp data = resultSet.getTimestamp(i);
-                    System.out.println(columnName + ": "+data);
+                    System.out.println(columnName + ": " + data);
                 }
             }
         }
@@ -128,7 +193,7 @@ public class DBUtil {
 
     public static void main(String[] args) {
         DBUtil dbUtil = new DBUtil();
-        dbUtil.connectToDB("server_admin","sdfcldkd","chat_server");
+        dbUtil.connectToDB("server_admin", "sdfcldkd", "chat_server");
         try {
             dbUtil.query("SELECT\n" +
                     "person.person_email,\n" +

@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by Hamed on 9/20/2015.
  */
 @XmlRootElement
-public class RegistrationRespondInfo extends XMLInfo {
+public class RespondInfo extends XMLInfo {
     Boolean succeed;
     String message;
 
@@ -29,7 +29,7 @@ public class RegistrationRespondInfo extends XMLInfo {
 
     @Override
     public String toString() {
-        return "RegistrationRespondInfo{" +
+        return "RespondInfo{" +
                 "succeed=" + succeed +
                 ", message='" + message + '\'' +
                 '}';

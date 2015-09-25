@@ -14,8 +14,11 @@ public abstract class ClientHandler implements Runnable {
     public final int PORT;
     public final long TIMEOUT;
 
+    public boolean printStatus = true;
+
     protected Selector selector;
     protected String symmetricKey;
+    protected boolean generateSymmetricKey = true;
 
     public ClientHandler(String ADDRESS, int PORT) {
         this(ADDRESS, PORT, 1000);
@@ -27,6 +30,30 @@ public abstract class ClientHandler implements Runnable {
         this.TIMEOUT = TIMEOUT;
     }
 
+    public boolean isPrintStatus() {
+        return printStatus;
+    }
+
+    public void setPrintStatus(boolean printStatus) {
+        this.printStatus = printStatus;
+    }
+
+    public String getSymmetricKey() {
+        return symmetricKey;
+    }
+
+    public void setSymmetricKey(String symmetricKey) {
+        this.symmetricKey = symmetricKey;
+    }
+
+    public boolean isGenerateSymmetricKey() {
+        return generateSymmetricKey;
+    }
+
+    public void setGenerateSymmetricKey(boolean generateSymmetricKey) {
+        this.generateSymmetricKey = generateSymmetricKey;
+    }
+
     @Override
     public void run() {
         SocketChannel channel;
@@ -35,7 +62,8 @@ public abstract class ClientHandler implements Runnable {
             channel = SocketChannel.open();
             channel.configureBlocking(false);
 
-            symmetricKey = SymmetricUtil.nextSymmetricKey();
+            if (generateSymmetricKey)
+                symmetricKey = SymmetricUtil.nextSymmetricKey();
 
             channel.register(selector, SelectionKey.OP_CONNECT);
             channel.connect(new InetSocketAddress(ADDRESS, PORT));
@@ -53,7 +81,8 @@ public abstract class ClientHandler implements Runnable {
                     if (!key.isValid()) continue;
 
                     if (key.isConnectable()) {
-                        System.out.println("I am connected to the server");
+                        if (isPrintStatus())
+                            System.out.println("I am connected to the server");
                         connect(key);
                     }
                     if (key.isWritable()) {

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by Hamed on 9/21/2015.
  */
 public class ChannelHelper {
-    public static ByteArrayOutputStream read(SelectionKey key) throws IOException {
+    public static byte[] read(SelectionKey key) throws IOException {
         SocketChannel channel = (SocketChannel) key.channel();
         ByteBuffer readBuffer = ByteBuffer.allocate(1024);
         readBuffer.clear();
@@ -30,7 +30,17 @@ public class ChannelHelper {
 
             readBuffer.compact();
         } while (length > 0);
-        return bos;
+        return bos.toByteArray();
+    }
+
+    public static ByteBuffer encrypt(ByteBuffer buffer, String symmetricKey) {
+        AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(symmetricKey);
+        return aesEncryptionUtil.encrypt(buffer);
+    }
+
+    public static byte[] decrypt(byte[] data, String symmetricKey) {
+        AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(symmetricKey);
+        return aesEncryptionUtil.decrypt(data);
     }
 
     public static <T> T readObject(byte[] data, Class<T> outputClass) throws IOException {
@@ -55,6 +65,14 @@ public class ChannelHelper {
         oos.flush();
 
         ByteBuffer buffer = ByteBuffer.wrap(bos.toByteArray());
+        channel.write(buffer);
+    }
+
+    public static void writePublicKey(SocketChannel channel, RSAEncryptionUtil rsaEncryptionUtil) throws IOException {
+        KeyInfo keyInfo = new KeyInfo();
+        keyInfo.setKey(rsaEncryptionUtil.getPublicKey());
+
+        ByteBuffer buffer = XMLUtil.marshal(keyInfo);
         channel.write(buffer);
     }
 }
