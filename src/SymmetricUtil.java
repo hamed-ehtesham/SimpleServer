@@ -22,4 +22,13 @@ public final class SymmetricUtil {
         AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(secretKey);
         return aesEncryptionUtil.encrypt(sessionID.toString());
     }
+
+    public static String getGroupID(String username, String secretKey){
+        StringBuilder groupID = new StringBuilder();
+        groupID.append(System.currentTimeMillis());
+        groupID.append("_");
+        groupID.append(username);
+        AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(secretKey);
+        return aesEncryptionUtil.encrypt(groupID.toString());
+    }
 }

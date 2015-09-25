@@ -8,18 +8,19 @@ import java.util.List;
  */
 @XmlRootElement
 public class GroupInfo extends XMLInfo {
-    int id=0;
+    String id;
     String name;
     String owner;
+    Boolean succeed;
     List<GroupMemberInfo> members = new ArrayList<GroupMemberInfo>();
 
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
     @XmlElement
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -48,6 +49,15 @@ public class GroupInfo extends XMLInfo {
     @XmlElement
     public void setMembers(List<GroupMemberInfo> members) {
          this.members = members;
+    }
+
+    public Boolean getSucceed() {
+        return this.succeed;
+    }
+
+    @XmlElement
+    public void setSucceed(Boolean succeed) {
+        this.succeed = succeed;
     }
 
 }

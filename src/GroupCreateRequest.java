@@ -60,12 +60,11 @@ public class GroupCreateRequest {
 //    }
 
     public static void main(String[] args) {
-        LoginRequest request = new LoginRequest("ali_jaf@gmail.com", "i,d[");
-        request.request();
+//        GroupCreateRequest request = new GroupCreateRequest("ali_jaf@gmail.com", "i,d[");
+//        request.request();
     }
 
     class request extends ClientHandler {
-        private SealedObject sealedObject;
 
         public request(String ADDRESS, int PORT) {
             super(ADDRESS, PORT);
@@ -79,7 +78,6 @@ public class GroupCreateRequest {
             }
             channel.configureBlocking(false);
 
-            //Prepare key for receive server's public key from server
             SelectionKey readKey = channel.register(selector, SelectionKey.OP_WRITE);
             readKey.attach(ConnectionSteps.GroupCreate.GROUP_CREATE_INFO);
         }
@@ -90,10 +88,12 @@ public class GroupCreateRequest {
             byte[] data = bos.toByteArray();
             switch ((ConnectionSteps.GroupCreate) key.attachment()) {
                 case GROUP_INFO: {
-                    GroupInfo respondInfo = XMLUtil.unmarshal(GroupInfo.class, data);
+                    AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(symmetricKey);
+                    data = aesEncryptionUtil.decrypt(data);
+                    GroupInfo respondInfo = XMLUtil.unmarshal(GroupInfo.class , data);
 
-                    if (respondInfo != null) {
-                        // TODO: Add Group to Group list as owner
+                    if (respondInfo != null && respondInfo.getSucceed()) {
+                        // TODO: Add Group to Group list as owner in UI
                     }
 
                     key.cancel();

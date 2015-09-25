@@ -129,4 +129,100 @@ public class DBHelper {
         return respondInfo;
     }
 
+    public static GroupInfo createGroup(GroupCreateInfo request) {
+        GroupInfo respondInfo = new GroupInfo();
+        DBUtil dbUtil = new DBUtil();
+        dbUtil.connectToDB("server_admin", "sdfcldkd", "chat_server");
+
+        try {
+            Connection con = dbUtil.getConnection();
+            ResultSet rs;
+
+            PreparedStatement prs = con.prepareStatement("SELECT person.person_email, "
+                    + "person_isremove "
+                    + "FROM person "
+                    + "INNER JOIN sessions "
+                    + "ON person.person_email = sessions.person_email"
+                    + "WHERE ( sessions.session_id = ?)");
+            prs.setString(1, request.getSession());
+            rs = prs.executeQuery();
+            try {
+                while (rs.next()) {
+                    //check isremove
+                    if (rs.getInt("person_isremove") == 0) {
+                        respondInfo.setId(SymmetricUtil.getGroupID(rs.getString("person.person_email"), rs.getString("person_isremove")));
+                        respondInfo.setOwner(rs.getString("person.person_email"));
+                        respondInfo.setName(request.getName());
+                        respondInfo.setMembers(request.getMembers());
+                        //set group
+                        try {
+                            PreparedStatement preparedStatement = dbUtil.getConnection().prepareStatement("INSERT INTO groups (group_id,\n" +
+                                    "group_name,\n" +
+                                    "person_email)\n" +
+                                    "VALUES (?, ?, ?);");
+                            preparedStatement.setString(1, respondInfo.getId());
+                            preparedStatement.setString(2, respondInfo.getName());
+                            preparedStatement.setString(3, respondInfo.getOwner());
+                            int executeUpdate = 0;
+                            try {
+                                executeUpdate = preparedStatement.executeUpdate();
+                            } catch (SQLException e) {
+                                respondInfo.setSucceed(false);
+                            }
+                            if (executeUpdate == 1) {
+                                //respondInfo.setSucceed(true);
+                                //set group members
+                                StringBuilder query = new StringBuilder();
+                                query.append("INSERT INTO person_group (person_email,group_id) VALUES ");
+                                int memberSize = respondInfo.getMembers().size();
+                                for (int i = 0; i < memberSize; i++) {
+                                    query.append("(?,?)");
+                                    if((memberSize)!=(i-1)){
+                                        query.append(" , ");
+                                    }
+                                   // query.append("(" + respondInfo.getMembers().get(i) + "," + respondInfo.getId() + ")");
+                                }
+
+                                try {
+                                    PreparedStatement pres = dbUtil.getConnection().prepareStatement(query.toString());
+                                    for (int i = 0; i < memberSize; i++) {
+                                        pres.setString((i+1), respondInfo.getMembers().get(i).getMember());
+                                        pres.setString((i+2), respondInfo.getId());
+                                    }
+                                    int execute = 0;
+                                    try {
+                                        execute = pres.executeUpdate();
+                                    } catch (SQLException e) {
+                                        respondInfo.setSucceed(false);
+                                    }
+                                    if (execute == 1) {
+                                        respondInfo.setSucceed(true);
+                                    }
+                                } catch (SQLException e) {
+                                    respondInfo.setSucceed(false);
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        } catch (SQLException e) {
+                            respondInfo.setSucceed(false);
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                }
+
+                respondInfo.setSucceed(false);
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+                respondInfo.setSucceed(false);
+            }
+        } catch (SQLException e) {
+            respondInfo.setSucceed(false);
+            e.printStackTrace();
+        }
+        dbUtil.close();
+        return respondInfo;
+    }
 }
