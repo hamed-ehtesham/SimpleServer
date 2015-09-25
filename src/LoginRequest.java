@@ -1,9 +1,6 @@
 import javax.crypto.SealedObject;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
-import java.nio.channels.Channels;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 
@@ -86,7 +83,11 @@ public class LoginRequest {
                     setRespond(respondInfo);
                     System.out.println(respondInfo);
                     if(respondInfo.getSucceed()) {
-
+                        IdentificationInfo identificationInfo = new IdentificationInfo();
+                        identificationInfo.setSessionID(respondInfo.getSessionID());
+                        identificationInfo.setEmail(getEmail());
+                        MessageSyncRequest request = new MessageSyncRequest(identificationInfo,symmetricKey, 1000);
+                        request.request();
                     }
                     key.cancel();
                     Thread.currentThread().interrupt();

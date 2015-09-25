@@ -5,12 +5,13 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Hamed on 9/19/2015.
  */
 public class RegisterHandler extends ServerHandler {
-    private String symmetricKey;
 
     public RegisterHandler(String ADDRESS, int PORT, long TIMEOUT) {
         super(ADDRESS, PORT, TIMEOUT);
@@ -39,23 +40,17 @@ public class RegisterHandler extends ServerHandler {
         SocketChannel channel = (SocketChannel) key.channel();
         switch ((ConnectionSteps.Registration) key.attachment()) {
             case PUBLIC_KEY: {
-                KeyInfo keyInfo = new KeyInfo();
-                keyInfo.setKey(rsaEncryptionUtil.getPublicKey());
-
-                ByteBuffer buffer = XMLUtil.marshal(keyInfo);
-                channel.write(buffer);
-//                System.out.println(new String(buffer.array()));
-                key.interestOps(SelectionKey.OP_READ);
-                key.attach(ConnectionSteps.Registration.SYMMETRIC_KEY);
+                ChannelHelper.writePublicKey(channel, rsaEncryptionUtil);
+                ConnectionSteps.attach(key, SelectionKey.OP_READ, ConnectionSteps.Registration.SYMMETRIC_KEY);
 
                 break;
             }
             case REG_RESPOND: {
+                ArrayList<Object> attachment = ConnectionSteps.attachment(key);
+                String symmetricKey = (String) attachment.get(0);
+                RegistrationRequestInfo requestInfo = (RegistrationRequestInfo) attachment.get(1);
                 RespondInfo respondInfo = new RespondInfo();
-                ConnectionSteps.Registration respond = (ConnectionSteps.Registration) key.attachment();
                 try {
-                    RegistrationRequestInfo requestInfo = (RegistrationRequestInfo) respond.getAttachment();
-
                     if (requestInfo != null) {
                         AESEncryptionUtil encryptionUtil = new AESEncryptionUtil(symmetricKey);
                         requestInfo.setPassword(encryptionUtil.encrypt(requestInfo.getPassword()));
@@ -86,6 +81,7 @@ public class RegisterHandler extends ServerHandler {
         byte[] data = ChannelHelper.read(key);
         switch ((ConnectionSteps.Registration) key.attachment()) {
             case SYMMETRIC_KEY: {
+                String symmetricKey = null;
                 SealedObject sealedObject = ChannelHelper.readObject(data, SealedObject.class);
                 if (sealedObject != null) {
                     try {
@@ -94,19 +90,17 @@ public class RegisterHandler extends ServerHandler {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    key.attach(ConnectionSteps.Registration.REG_INFO);
+                    ConnectionSteps.attach(key, SelectionKey.OP_READ, ConnectionSteps.Registration.REG_INFO, symmetricKey);
                 }
                 break;
             }
             case REG_INFO: {
-                AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(symmetricKey);
-                data = aesEncryptionUtil.decrypt(data);
+                ArrayList<Object> attachment = ConnectionSteps.attachment(key);
+                String symmetricKey = (String) attachment.get(0);
+                data = ChannelHelper.decrypt(data, symmetricKey);
                 RegistrationRequestInfo requestInfo = XMLUtil.unmarshal(RegistrationRequestInfo.class, data);
                 System.out.println(requestInfo);
-                key.interestOps(SelectionKey.OP_WRITE);
-                ConnectionSteps.Registration respond = ConnectionSteps.Registration.REG_RESPOND;
-                respond.setAttachment(requestInfo);
-                key.attach(respond);
+                ConnectionSteps.attach(key, SelectionKey.OP_WRITE, ConnectionSteps.Registration.REG_RESPOND, symmetricKey, requestInfo);
                 break;
             }
         }

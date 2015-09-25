@@ -74,7 +74,7 @@ public class RegisterRequest {
     }
 
     public static void main(String[] args) {
-        RegisterRequest request = new RegisterRequest("ali_jafari2@gmail.com", "i,d[", "ali", "jafari", "aliJ");
+        RegisterRequest request = new RegisterRequest("javad.mohamma@gmail.com", "i,d[", "ali", "jafari", "aliJ");
         request.request();
     }
 
@@ -116,9 +116,10 @@ public class RegisterRequest {
                     System.out.println(respondInfo);
                     if(respondInfo.getSucceed())
                     {
-                        ConnectionSteps.Registration attachment = (ConnectionSteps.Registration) key.attachment();
-                        RegistrationRequestInfo requestInfo = (RegistrationRequestInfo) attachment.getAttachment();
-                        LoginRequest request = new LoginRequest(requestInfo.getEmail(), requestInfo.getPassword());
+                        AESEncryptionUtil aesEncryptionUtil = new AESEncryptionUtil(symmetricKey);
+                        System.out.println(getPassword());
+//                        requestInfo.setPassword(aesEncryptionUtil.decrypt(requestInfo.getPassword()));
+                        LoginRequest request = new LoginRequest(getEmail(), getPassword());
                         request.request();
                     }
                     key.cancel();
@@ -138,7 +139,6 @@ public class RegisterRequest {
                         ChannelHelper.writeObject(channel, sealedObject);
                         key.attach(ConnectionSteps.Registration.REG_INFO);
                     }
-
                     break;
                 }
                 case REG_INFO: {
@@ -154,8 +154,6 @@ public class RegisterRequest {
                     channel.write(buffer);
 //                    System.out.println(new String(buffer.array()));
                     key.interestOps(SelectionKey.OP_READ);
-                    ConnectionSteps.Registration respond = ConnectionSteps.Registration.REG_RESPOND;
-                    respond.setAttachment(requestInfo);
                     key.attach(ConnectionSteps.Registration.REG_RESPOND);
 
                     break;

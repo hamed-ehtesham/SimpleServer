@@ -23,39 +23,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DBHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="218" column="41" selection-start-line="218" selection-start-column="41" selection-end-line="218" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.6559865">
+              <caret line="314" column="32" selection-start-line="314" selection-start-column="32" selection-end-line="314" selection-end-column="32" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#7882#7895#0" expanded="true" />
-                <marker date="1443098314538" expanded="true" signature="776:1099" placeholder="INSERT INTO ..." />
-                <marker date="1443098314538" expanded="true" signature="2856:3046" placeholder="SELECT perso..person..." />
-                <marker date="1443098314538" expanded="true" signature="3972:4233" placeholder="INSERT INTO ..." />
-                <marker date="1443098314538" expanded="true" signature="6746:6995" placeholder="SELECT\nmess..messages..." />
-                <marker date="1443098314538" expanded="true" signature="8147:8532" placeholder="SELECT\nmess..messages..." />
-                <marker date="1443098314538" expanded="true" signature="9641:9892" placeholder="SELECT\nmess..messages..." />
+                <marker date="1443142575233" expanded="true" signature="834:1157" placeholder="INSERT INTO ..." />
+                <marker date="1443142575233" expanded="true" signature="3121:3311" placeholder="SELECT perso..person..." />
+                <marker date="1443142575233" expanded="true" signature="4237:4498" placeholder="INSERT INTO ..." />
+                <marker date="1443142575233" expanded="true" signature="7011:7260" placeholder="SELECT\nmess..messages..." />
+                <marker date="1443142575233" expanded="true" signature="8531:8963" placeholder="SELECT\nmess..messages..." />
+                <marker date="1443142575233" expanded="true" signature="8531:8997" placeholder="SELECT\nmess..messages..." />
+                <marker date="1443142575233" expanded="true" signature="10563:10814" placeholder="SELECT\nsess..sessions..." />
+                <marker date="1443142575233" expanded="true" signature="11671:11975" placeholder="UPDATE messa..." />
+                <marker date="1443142575233" expanded="true" signature="13288:13500" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DBUtil.java">
+      <file leaf-file-name="RegisterHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RegisterHandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#281#282#0" expanded="true" />
-                <element signature="e#314#315#0" expanded="true" />
-                <element signature="e#1944#1952#0" expanded="true" />
-                <element signature="e#2078#2086#0" expanded="true" />
-                <element signature="e#2437#2445#0" expanded="true" />
-                <element signature="e#4197#4207#0" expanded="true" />
-              </folding>
+              <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,7 +57,7 @@
         <entry file="file://$PROJECT_DIR$/src/MessageSyncHandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+              <caret line="43" column="62" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,35 +65,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MessageSyncRequest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/MessageSyncRequest.java">
+      <file leaf-file-name="MessagingHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MessagingHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8887015">
-              <caret line="47" column="124" selection-start-line="47" selection-start-column="124" selection-end-line="47" selection-end-column="124" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="43" column="52" selection-start-line="43" selection-start-column="52" selection-end-line="43" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ClientHandler.java">
+      <file leaf-file-name="MessagingRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MessagingRequest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+              <caret line="116" column="17" selection-start-line="116" selection-start-column="17" selection-end-line="116" selection-end-column="17" />
               <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IdentificationInfo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IdentificationInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#2074#2075#0" expanded="true" />
+                <element signature="e#2116#2117#0" expanded="true" />
+                <element signature="e#2179#2180#0" expanded="true" />
+                <element signature="e#2233#2234#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -146,22 +130,25 @@
         <option value="$PROJECT_DIR$/src/LoginRespondInfo.java" />
         <option value="$PROJECT_DIR$/src/RegistrationRespondInfo.java" />
         <option value="$PROJECT_DIR$/src/MessagingRespondInfo.java" />
-        <option value="$PROJECT_DIR$/src/RegisterHandler.java" />
-        <option value="$PROJECT_DIR$/src/RegisterRequest.java" />
-        <option value="$PROJECT_DIR$/src/ChannelHelper.java" />
-        <option value="$PROJECT_DIR$/src/LoginRequest.java" />
-        <option value="$PROJECT_DIR$/src/LoginHandler.java" />
-        <option value="$PROJECT_DIR$/src/MessagingHandler.java" />
-        <option value="$PROJECT_DIR$/src/MessageInfo.java" />
-        <option value="$PROJECT_DIR$/src/ClientHandler.java" />
-        <option value="$PROJECT_DIR$/src/MessagingRequest.java" />
         <option value="$PROJECT_DIR$/src/MessageReceiverHandler.java" />
         <option value="$PROJECT_DIR$/src/IdentificationInfo.java" />
-        <option value="$PROJECT_DIR$/src/ConnectionSteps.java" />
-        <option value="$PROJECT_DIR$/src/MessageSyncHandler.java" />
-        <option value="$PROJECT_DIR$/src/MessageSyncRequest.java" />
-        <option value="$PROJECT_DIR$/src/DBHelper.java" />
         <option value="$PROJECT_DIR$/src/DBUtil.java" />
+        <option value="$PROJECT_DIR$/src/MessageInfo.java" />
+        <option value="$PROJECT_DIR$/src/MessageInfoTest.java" />
+        <option value="$PROJECT_DIR$/src/LoginRequest.java" />
+        <option value="$PROJECT_DIR$/src/ClientHandler.java" />
+        <option value="$PROJECT_DIR$/src/MessageSyncRequest.java" />
+        <option value="$PROJECT_DIR$/src/ChannelHelper.java" />
+        <option value="$PROJECT_DIR$/src/ConnectionSteps.java" />
+        <option value="$PROJECT_DIR$/src/RegisterHandler.java" />
+        <option value="$PROJECT_DIR$/src/LoginHandler.java" />
+        <option value="$PROJECT_DIR$/src/RegisterRequest.java" />
+        <option value="$PROJECT_DIR$/src/MessageRequest.java" />
+        <option value="$PROJECT_DIR$/src/MessageHandler.java" />
+        <option value="$PROJECT_DIR$/src/MessagingRequest.java" />
+        <option value="$PROJECT_DIR$/src/MessagingHandler.java" />
+        <option value="$PROJECT_DIR$/src/MessageSyncHandler.java" />
+        <option value="$PROJECT_DIR$/src/DBHelper.java" />
       </list>
     </option>
   </component>
@@ -284,25 +271,10 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="false" name="LoginRequest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.MessagingRequest">
+    <configuration default="false" name="MessageSyncRequest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="LoginRequest" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="SimpleServer" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="LoginHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="LoginHandler" />
+      <option name="MAIN_CLASS_NAME" value="MessageSyncRequest" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -330,9 +302,9 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="MessageSyncRequest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="LoginRequest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="MessageSyncRequest" />
+      <option name="MAIN_CLASS_NAME" value="LoginRequest" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -345,9 +317,24 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="DBUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="MessagingHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="DBUtil" />
+      <option name="MAIN_CLASS_NAME" value="MessagingHandler" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="SimpleServer" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="MessagingRequest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="MessagingRequest" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -643,19 +630,19 @@
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Application.RegisterHandler" />
       <item index="1" class="java.lang.String" itemvalue="Application.RegisterRequest" />
-      <item index="2" class="java.lang.String" itemvalue="Application.LoginRequest" />
-      <item index="3" class="java.lang.String" itemvalue="Application.LoginHandler" />
-      <item index="4" class="java.lang.String" itemvalue="Application.MessageSyncHandler" />
-      <item index="5" class="java.lang.String" itemvalue="Application.MessageSyncRequest" />
-      <item index="6" class="java.lang.String" itemvalue="Application.DBUtil" />
+      <item index="2" class="java.lang.String" itemvalue="Application.MessageSyncRequest" />
+      <item index="3" class="java.lang.String" itemvalue="Application.MessageSyncHandler" />
+      <item index="4" class="java.lang.String" itemvalue="Application.LoginRequest" />
+      <item index="5" class="java.lang.String" itemvalue="Application.MessagingHandler" />
+      <item index="6" class="java.lang.String" itemvalue="Application.MessagingRequest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.MessageSyncRequest" />
-        <item index="1" class="java.lang.String" itemvalue="Application.DBUtil" />
-        <item index="2" class="java.lang.String" itemvalue="Application.MessageSyncHandler" />
-        <item index="3" class="java.lang.String" itemvalue="Application.LoginRequest" />
-        <item index="4" class="java.lang.String" itemvalue="Application.LoginHandler" />
+        <item index="0" class="java.lang.String" itemvalue="Application.MessagingRequest" />
+        <item index="1" class="java.lang.String" itemvalue="Application.MessagingHandler" />
+        <item index="2" class="java.lang.String" itemvalue="Application.LoginRequest" />
+        <item index="3" class="java.lang.String" itemvalue="Application.MessageSyncRequest" />
+        <item index="4" class="java.lang.String" itemvalue="Application.MessageSyncHandler" />
       </list>
     </recent_temporary>
   </component>
@@ -671,12 +658,12 @@
       <updated>1442739122475</updated>
       <workItem from="1442739131042" duration="49824000" />
       <workItem from="1442926039521" duration="45703000" />
-      <workItem from="1443033897742" duration="29458000" />
+      <workItem from="1443033897742" duration="66473000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124985000" />
+    <option name="totallyTimeSpent" value="162000000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -721,7 +708,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="10" />
+      <option name="time" value="12" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -730,42 +717,18 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/RegisterRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="168" column="5" selection-start-line="75" selection-start-column="4" selection-end-line="168" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LoginRespondInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="21" />
-          <folding>
-            <element signature="e#261#262#0" expanded="true" />
-            <element signature="e#293#294#0" expanded="true" />
-            <element signature="e#359#360#0" expanded="true" />
-            <element signature="e#401#402#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MessageSyncHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="104" column="24" selection-start-line="104" selection-start-column="24" selection-end-line="104" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MessageSyncRequest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#705#706#0" expanded="true" />
+            <element signature="e#737#738#0" expanded="true" />
+            <element signature="e#855#856#0" expanded="true" />
+            <element signature="e#897#898#0" expanded="true" />
+            <element signature="e#1485#1486#0" expanded="true" />
+            <element signature="e#1529#1530#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -774,10 +737,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
           <folding>
-            <element signature="e#514#515#0" expanded="true" />
-            <element signature="e#555#556#0" expanded="true" />
-            <element signature="e#850#851#0" expanded="true" />
-            <element signature="e#891#892#0" expanded="true" />
+            <element signature="e#680#681#0" expanded="true" />
+            <element signature="e#721#722#0" expanded="true" />
+            <element signature="e#1066#1067#0" expanded="true" />
+            <element signature="e#1107#1108#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -795,7 +758,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -896,7 +859,7 @@
         <state vertical-scroll-proportion="0.20101352">
           <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -982,9 +945,8 @@
         <state vertical-scroll-proportion="0.2866779">
           <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#279#280#0" expanded="true" />
-            <element signature="e#342#343#0" expanded="true" />
+            <element signature="e#279#280#0" expanded="false" />
+            <element signature="e#342#343#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -994,48 +956,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RegisterHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="102" column="55" selection-start-line="101" selection-start-column="16" selection-end-line="102" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LoginRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3322091">
-          <caret line="116" column="43" selection-start-line="116" selection-start-column="43" selection-end-line="116" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LoginHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82630694">
-          <caret line="101" column="63" selection-start-line="101" selection-start-column="63" selection-end-line="101" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RegisterRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="89" column="12" selection-start-line="89" selection-start-column="12" selection-end-line="97" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MessageInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1052,16 +972,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LoginRequestInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1073,18 +985,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ConnectionSteps.java">
+    <entry file="file://$PROJECT_DIR$/src/IdentificationInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.20067453">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LoginRequestInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17200674">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/XMLUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28330523">
-          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.16863406">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MessageInfoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/nio/channels/Selector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2030361">
+          <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DBUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MessageSyncRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="135" column="35" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
+          <folding>
+            <element signature="e#705#706#0" expanded="true" />
+            <element signature="e#737#738#0" expanded="true" />
+            <element signature="e#855#856#0" expanded="true" />
+            <element signature="e#897#898#0" expanded="true" />
+            <element signature="e#1485#1486#0" expanded="true" />
+            <element signature="e#1529#1530#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ConnectionSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5699831">
+          <caret line="63" column="9" selection-start-line="63" selection-start-column="9" selection-end-line="63" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1093,8 +1062,61 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ChannelHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.48735243">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="30" selection-start-line="75" selection-start-column="30" selection-end-line="75" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LoginHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="54" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RegisterHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LoginRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MessageInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02866779">
+          <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
+          <folding>
+            <element signature="e#616#617#0" expanded="true" />
+            <element signature="e#658#659#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RegisterRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="76" column="68" selection-start-line="76" selection-start-column="68" selection-end-line="76" selection-end-column="68" />
           <folding />
         </state>
       </provider>
@@ -1102,71 +1124,49 @@
     <entry file="file://$PROJECT_DIR$/src/MessageSyncHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+          <caret line="43" column="62" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IdentificationInfo.java">
+    <entry file="file://$PROJECT_DIR$/src/MessagingHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <caret line="43" column="52" selection-start-line="43" selection-start-column="52" selection-end-line="43" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MessagingRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="116" column="17" selection-start-line="116" selection-start-column="17" selection-end-line="116" selection-end-column="17" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2074#2075#0" expanded="true" />
+            <element signature="e#2116#2117#0" expanded="true" />
+            <element signature="e#2179#2180#0" expanded="true" />
+            <element signature="e#2233#2234#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DBHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="218" column="41" selection-start-line="218" selection-start-column="41" selection-end-line="218" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.6559865">
+          <caret line="314" column="32" selection-start-line="314" selection-start-column="32" selection-end-line="314" selection-end-column="32" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7882#7895#0" expanded="true" />
-            <marker date="1443098314538" expanded="true" signature="776:1099" placeholder="INSERT INTO ..." />
-            <marker date="1443098314538" expanded="true" signature="2856:3046" placeholder="SELECT perso..person..." />
-            <marker date="1443098314538" expanded="true" signature="3972:4233" placeholder="INSERT INTO ..." />
-            <marker date="1443098314538" expanded="true" signature="6746:6995" placeholder="SELECT\nmess..messages..." />
-            <marker date="1443098314538" expanded="true" signature="8147:8532" placeholder="SELECT\nmess..messages..." />
-            <marker date="1443098314538" expanded="true" signature="9641:9892" placeholder="SELECT\nmess..messages..." />
+            <marker date="1443142575233" expanded="true" signature="834:1157" placeholder="INSERT INTO ..." />
+            <marker date="1443142575233" expanded="true" signature="3121:3311" placeholder="SELECT perso..person..." />
+            <marker date="1443142575233" expanded="true" signature="4237:4498" placeholder="INSERT INTO ..." />
+            <marker date="1443142575233" expanded="true" signature="7011:7260" placeholder="SELECT\nmess..messages..." />
+            <marker date="1443142575233" expanded="true" signature="8531:8963" placeholder="SELECT\nmess..messages..." />
+            <marker date="1443142575233" expanded="true" signature="8531:8997" placeholder="SELECT\nmess..messages..." />
+            <marker date="1443142575233" expanded="true" signature="10563:10814" placeholder="SELECT\nsess..sessions..." />
+            <marker date="1443142575233" expanded="true" signature="11671:11975" placeholder="UPDATE messa..." />
+            <marker date="1443142575233" expanded="true" signature="13288:13500" placeholder="INSERT INTO ..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DBUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#281#282#0" expanded="true" />
-            <element signature="e#314#315#0" expanded="true" />
-            <element signature="e#1944#1952#0" expanded="true" />
-            <element signature="e#2078#2086#0" expanded="true" />
-            <element signature="e#2437#2445#0" expanded="true" />
-            <element signature="e#4197#4207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MessageSyncRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8887015">
-          <caret line="47" column="124" selection-start-line="47" selection-start-column="124" selection-end-line="47" selection-end-column="124" />
-          <folding />
         </state>
       </provider>
     </entry>

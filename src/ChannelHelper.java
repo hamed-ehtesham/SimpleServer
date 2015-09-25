@@ -67,4 +67,12 @@ public class ChannelHelper {
         ByteBuffer buffer = ByteBuffer.wrap(bos.toByteArray());
         channel.write(buffer);
     }
+
+    public static void writePublicKey(SocketChannel channel, RSAEncryptionUtil rsaEncryptionUtil) throws IOException {
+        KeyInfo keyInfo = new KeyInfo();
+        keyInfo.setKey(rsaEncryptionUtil.getPublicKey());
+
+        ByteBuffer buffer = XMLUtil.marshal(keyInfo);
+        channel.write(buffer);
+    }
 }

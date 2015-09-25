@@ -5,12 +5,13 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Mohammad Amin on 23/09/2015.
  */
 public class LoginHandler extends ServerHandler {
-    private String symmetricKey;
 
     public LoginHandler(String ADDRESS, int PORT, long TIMEOUT) {
         super(ADDRESS, PORT, TIMEOUT);
@@ -39,22 +40,17 @@ public class LoginHandler extends ServerHandler {
         SocketChannel channel = (SocketChannel) key.channel();
         switch ((ConnectionSteps.Login) key.attachment()) {
             case PUBLIC_KEY: {
-                KeyInfo keyInfo = new KeyInfo();
-                keyInfo.setKey(rsaEncryptionUtil.getPublicKey());
-
-                ByteBuffer buffer = XMLUtil.marshal(keyInfo);
-                channel.write(buffer);
-//                System.out.println(new String(buffer.array()));
-                key.interestOps(SelectionKey.OP_READ);
-                key.attach(ConnectionSteps.Login.SYMMETRIC_KEY);
+                ChannelHelper.writePublicKey(channel, rsaEncryptionUtil);
+                ConnectionSteps.attach(key, SelectionKey.OP_READ, ConnectionSteps.Login.SYMMETRIC_KEY);
 
                 break;
             }
             case LOGIN_RESPOND: {
+                ArrayList<Object> attachment = ConnectionSteps.attachment(key);
+                String symmetricKey = (String) attachment.get(0);
+                LoginRequestInfo requestInfo = (LoginRequestInfo) attachment.get(1);
                 LoginRespondInfo respondInfo = new LoginRespondInfo();
-                ConnectionSteps.Login respond = (ConnectionSteps.Login) key.attachment();
                 try {
-                    LoginRequestInfo requestInfo = (LoginRequestInfo) respond.getAttachment();
 
                     if(requestInfo != null) {
                         respondInfo = DBHelper.login(requestInfo, symmetricKey, channel.getRemoteAddress());
@@ -72,7 +68,6 @@ public class LoginHandler extends ServerHandler {
 
                 ByteBuffer buffer = XMLUtil.marshal(respondInfo);
                 channel.write(buffer);
-//                System.out.println(new String(buffer.array()));
                 key.cancel();
 
                 break;
@@ -86,6 +81,7 @@ public class LoginHandler extends ServerHandler {
         byte[] data = ChannelHelper.read(key);
         switch ((ConnectionSteps.Login) key.attachment()) {
             case SYMMETRIC_KEY: {
+                String symmetricKey = null;
                 SealedObject sealedObject = ChannelHelper.readObject(data, SealedObject.class);
                 if (sealedObject != null) {
                     try {
@@ -94,18 +90,17 @@ public class LoginHandler extends ServerHandler {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    key.attach(ConnectionSteps.Login.LOGIN_INFO);
+                    ConnectionSteps.attach(key, SelectionKey.OP_READ, ConnectionSteps.Login.LOGIN_INFO,symmetricKey);
                 }
                 break;
             }
             case LOGIN_INFO: {
-                data = ChannelHelper.decrypt(data,symmetricKey);
+                ArrayList<Object> attachment = ConnectionSteps.attachment(key);
+                String symmetricKey = (String) attachment.get(0);
+                data = ChannelHelper.decrypt(data, symmetricKey);
                 LoginRequestInfo requestInfo = XMLUtil.unmarshal(LoginRequestInfo.class, data);
                 System.out.println(requestInfo);
-                key.interestOps(SelectionKey.OP_WRITE);
-                ConnectionSteps.Login respond = ConnectionSteps.Login.LOGIN_RESPOND;
-                respond.setAttachment(requestInfo);
-                key.attach(respond);
+                ConnectionSteps.attach(key, SelectionKey.OP_WRITE, ConnectionSteps.Login.LOGIN_RESPOND, symmetricKey, requestInfo);
                 break;
             }
         }

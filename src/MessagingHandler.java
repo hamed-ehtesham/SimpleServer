@@ -8,15 +8,15 @@ import java.util.ArrayList;
 /**
  * Created by Hamed on 9/23/2015.
  */
-public class MessageSyncHandler extends ServerHandler {
+public class MessagingHandler extends ServerHandler {
 
-    public MessageSyncHandler(String ADDRESS, int PORT, long TIMEOUT) {
+    public MessagingHandler(String ADDRESS, int PORT, long TIMEOUT) {
         super(ADDRESS, PORT, TIMEOUT);
         init();
     }
 
     public static void main(String[] args) {
-        MessageSyncHandler messageSyncHandler = new MessageSyncHandler("localhost", 8515, 10000);
+        MessagingHandler messageSyncHandler = new MessagingHandler("localhost", 8516, 10000);
         Thread thread = new Thread(messageSyncHandler);
         thread.start();
     }
@@ -40,42 +40,35 @@ public class MessageSyncHandler extends ServerHandler {
             case SYNC_RESPOND: {
                 ArrayList<Object> attachment = ConnectionSteps.attachment(key);
                 IdentificationInfo identificationInfo = (IdentificationInfo) attachment.get(0);
+                RespondInfo respond = new RespondInfo();
                 //see if there is new messages in db
-                RespondInfo respond = DBHelper.hasNewMessages(identificationInfo);
+                String[] sessionInfo = DBHelper.getSessionInfo(identificationInfo.getSessionID());
+                String symmetricKey = sessionInfo[1];
+                if (symmetricKey == null || symmetricKey == "") {
+                    respond.setSucceed(false);
+                    respond.setMessage("there is not such a symmetric key");
+                } else {
+                    respond.setSucceed(true);
+                }
                 ByteBuffer buffer = XMLUtil.marshal(respond);
                 channel.write(buffer);
 //                System.out.println(new String(buffer.array()));
                 if (respond.getSucceed()) {
-                    ConnectionSteps.attach(key, SelectionKey.OP_WRITE, ConnectionSteps.Messaging.MESSAGE_INFO,identificationInfo);
+                    ConnectionSteps.attach(key, SelectionKey.OP_READ, ConnectionSteps.Messaging.MESSAGE_INFO,symmetricKey);
                 } else
                     key.cancel();
                 break;
             }
-            case MESSAGE_INFO: {
+            case MESSAGE_RESPOND: {
                 ArrayList<Object> attachment = ConnectionSteps.attachment(key);
-                IdentificationInfo identificationInfo = (IdentificationInfo) attachment.get(0);
-                String[] sessionInfo = DBHelper.getSessionInfo(identificationInfo.getSessionID());
-                String symmetricKey = sessionInfo[1];
-                if (symmetricKey == null || symmetricKey == "") {
-                    key.cancel();
-                    break;
-                }
-                MessageInfo messageInfo = DBHelper.getMessage(identificationInfo);
-//                for (MessageInfo messageInfo : messages) {
-//                    ByteBuffer buffer = XMLUtil.marshal(messageInfo);
-//                    buffer = ChannelHelper.encrypt(buffer, symmetricKey);
-//                    channel.write(buffer);
-//                }
-                if (messageInfo != null) {
-                    System.out.println(messageInfo);
-                    ByteBuffer buffer = XMLUtil.marshal(messageInfo);
-                    buffer = ChannelHelper.encrypt(buffer, symmetricKey);
-                    channel.write(buffer);
-
-                    ConnectionSteps.attach(key, SelectionKey.OP_READ, ConnectionSteps.Messaging.MESSAGE_RESPOND, identificationInfo, symmetricKey, messageInfo);
-                } else {
-                    key.cancel();
-                }
+                String symmetricKey = (String) attachment.get(0);
+                MessageInfo messageInfo = (MessageInfo) attachment.get(1);
+                //write message in DB
+                RespondInfo respondInfo = DBHelper.insertMessage(messageInfo);
+                ByteBuffer buffer = XMLUtil.marshal(respondInfo);
+                buffer = ChannelHelper.encrypt(buffer, symmetricKey);
+                channel.write(buffer);
+                key.cancel();
                 break;
             }
         }
@@ -91,19 +84,13 @@ public class MessageSyncHandler extends ServerHandler {
                 ConnectionSteps.attach(key, SelectionKey.OP_WRITE, ConnectionSteps.Messaging.SYNC_RESPOND, identificationInfo);
                 break;
             }
-            case MESSAGE_RESPOND: {
+            case MESSAGE_INFO: {
                 ArrayList<Object> attachment = ConnectionSteps.attachment(key);
-                IdentificationInfo identificationInfo = (IdentificationInfo) attachment.get(0);
-                String symmetricKey = (String) attachment.get(1);
-                MessageInfo messageInfo = (MessageInfo) attachment.get(2);
+                String symmetricKey = (String) attachment.get(0);
                 data = ChannelHelper.decrypt(data, symmetricKey);
-                RespondInfo respondInfo = XMLUtil.unmarshal(RespondInfo.class, data);
-                System.out.println(respondInfo);
-                if (respondInfo.getSucceed()) {
-                    //mark message is read
-                    DBHelper.sentMessage(messageInfo);
-                }
-                ConnectionSteps.attach(key, SelectionKey.OP_WRITE, ConnectionSteps.Messaging.SYNC_RESPOND,identificationInfo);
+                MessageInfo messageInfo = XMLUtil.unmarshal(MessageInfo.class, data);
+                System.out.println(messageInfo);
+                ConnectionSteps.attach(key, SelectionKey.OP_WRITE, ConnectionSteps.Messaging.MESSAGE_RESPOND,symmetricKey,messageInfo);
                 break;
             }
         }

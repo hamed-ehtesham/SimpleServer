@@ -85,6 +85,20 @@ public class DBUtil {
         return table;
     }
 
+    public ArrayList<Object> getRow(ArrayList<Object> table, int index) {
+        ArrayList<Object> row = (ArrayList<Object>) table.get(index + 2);
+        return row;
+    }
+
+    public <T> T getElement(ArrayList<Object> table, int row, int column, Class<T> outputClass) {
+        ArrayList<Object> rowData = getRow(table, row);
+        ArrayList<Class<?>> columnTypes = (ArrayList<Class<?>>) table.get(1);
+        Class<?> columnType = columnTypes.get(column);
+        if (outputClass != columnType)
+            throw new IllegalArgumentException("output class is not correct expect: " + columnType);
+        return (T)rowData.get(column);
+    }
+
     public void printTable(ArrayList<Object> table) {
         ArrayList<String> columnNames = (ArrayList<String>) table.get(0);
         int columnCount = columnNames.size();
